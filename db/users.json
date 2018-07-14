@@ -1,0 +1,14 @@
+{
+  "user0": {
+    "uid": "40zezfpLHtT1noxHlKNBXmymWQp1",
+    "username": "John Q. Public",
+    "district": 5,
+    "state": "TN"
+  },
+  "user1": {
+    "uid": "D7MS3Mw0brd6fc7oE4yelEfryDB2",
+    "username": "Jane Doe",
+    "district": 5,
+    "state": "TN"
+  }
+}

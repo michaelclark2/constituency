@@ -1,0 +1,18 @@
+{
+  "vote0": {
+    "uid": "40zezfpLHtT1noxHlKNBXmymWQp1",
+    "position": true,
+    "billTitle": "Ice Cream Sunday a National Holiday",
+    "billSlug": "hr2292",
+    "billNumber": "H.R.2292",
+    "billUri": "https://api.propublica.org/congress/v1/115/bills/hr2292.json"
+  },
+  "vote1": {
+    "uid": "D7MS3Mw0brd6fc7oE4yelEfryDB2",
+    "position": false,
+    "billTitle": "Ice Cream Sunday a National Holiday",
+    "billSlug": "hr2292",
+    "billNumber": "H.R.2292",
+    "billUri": "https://api.propublica.org/congress/v1/115/bills/hr2292.json"
+  }
+}

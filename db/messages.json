@@ -1,0 +1,20 @@
+{
+  "msg0": {
+    "uid": "40zezfpLHtT1noxHlKNBXmymWQp1",
+    "billSlug": "hr2292",
+    "state": "TN",
+    "district": 5,
+    "name": "John Q. Public",
+    "position": true,
+    "post": "This bill is pretty cool 10/10 would vote again"
+  },
+  "msg1": {
+    "uid": "D7MS3Mw0brd6fc7oE4yelEfryDB2",
+    "billSlug": "hr2292",
+    "state": "TN",
+    "district": 5,
+    "name": "Jane Publique",
+    "position": false,
+    "post": "This bill sucks, I hate it"
+  }
+}

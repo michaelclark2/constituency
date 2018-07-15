@@ -10,6 +10,9 @@ import IndividualBillPage from '../components/IndividualBillPage/IndividualBillP
 import Register from '../components/Register/Register';
 import Login from '../components/Login/Login';
 
+import connection from '../firebase/connection';
+connection();
+
 const PrivateRoute = ({component: Component, authed, ...rest}) => {
   return (
     <Route

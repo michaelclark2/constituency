@@ -1,5 +1,6 @@
 import React from 'react';
 import {Route, BrowserRouter, Redirect, Switch} from 'react-router-dom';
+import firebase from 'firebase';
 import './App.css';
 
 import Navbar from '../components/Navbar/Navbar';
@@ -50,6 +51,19 @@ const PublicRoute = ({ component: Component, authed, ...rest}) => {
 class App extends React.Component {
   state = {
     authed: false,
+  }
+  componentDidMount () {
+    this.checkLogin = firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({authed: true});
+      }
+      else {
+        this.setState({authed: false});
+      }
+    });
+  }
+  componentWillUnmount () {
+    this.checkLogin();
   }
   render () {
     return (

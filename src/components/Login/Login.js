@@ -2,7 +2,32 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import './Login.css';
 
+import authReqs from '../../firebase/auth';
+
 class Login extends React.Component {
+  state = {
+    user: {
+      email: '',
+      password: '',
+    },
+  }
+  onSignInClick = (e) => {
+    e.preventDefault();
+    const {user} = this.state;
+    authReqs
+      .loginUser(user)
+      .then(user => {
+        this.props.history.push('/bills');
+      })
+      .catch(err => {
+        console.error('There was an error logging in', err);
+      });
+  }
+  onInputChange = (e) => {
+    const {user} = {...this.state};
+    user[e.target.type] = e.target.value;
+    this.setState({user});
+  }
   render () {
     return (
       <div className="Login container">
@@ -13,17 +38,17 @@ class Login extends React.Component {
               <form className="form-horizontal">
                 <div className="form-group">
                   <div className="col-sm-12">
-                    <input type="email" className="form-control text-center" placeholder="Email" />
+                    <input onChange={this.onInputChange} value={this.state.user.email} type="email" className="form-control text-center" placeholder="Email" />
                   </div>
                 </div>
                 <div className="form-group">
                   <div className="col-sm-12">
-                    <input type="password" className="form-control text-center" placeholder="Password" />
+                    <input onChange={this.onInputChange} value={this.state.user.password} type="password" className="form-control text-center" placeholder="Password" />
                   </div>
                 </div>
                 <div className="form-group">
                   <div className="col-sm-12">
-                    <button type="submit" className="btn btn-default">Sign in</button>
+                    <button onClick={this.onSignInClick} type="submit" className="btn btn-default">Sign in</button>
                   </div>
                 </div>
                 <div className="form-group">

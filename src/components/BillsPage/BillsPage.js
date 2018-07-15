@@ -2,11 +2,22 @@ import React from 'react';
 import NavLink from '../NavLink/NavLink';
 import './BillsPage.css';
 
+import {getBills} from '../../apicalls/propublica';
+
 class BillsPage extends React.Component {
   state = {
-    bills: ['bill', 'bill two','bill three'],
-    billChamber: 'both',
-    billType: 'introduced',
+    bills: [],
+    billChamber: '',
+    billType: '',
+  }
+  componentDidUpdate (prevProps, prevState) {
+    const {billChamber, billType} = this.state;
+    if (billType !== prevState.billType) {
+      getBills(billChamber, billType)
+        .then(bills => {
+          this.setState({bills});
+        });
+    }
   }
   changeChamber = (e) => {
     this.setState({billChamber: e.target.value});
@@ -22,17 +33,9 @@ class BillsPage extends React.Component {
   render () {
     const billsComponents = this.state.bills.map(bill => {
       return (
-        <div>
-          <h1>{bill}</h1>
-        </div>
+        <h1 key={bill.bill_id} >{bill.bill_slug}</h1>
       );
     });
-    const disableBoth = () => {
-      if (this.state.billType === 'upcoming') {
-        return true;
-      }
-      return false;
-    };
     return (
       <div className="BillsPage container-fluid">
         <div className="row search-bar">
@@ -55,7 +58,7 @@ class BillsPage extends React.Component {
                 type="radio"
                 name="chamberSelect"
                 value="both"
-                disabled={disableBoth()}
+                disabled={this.state.billType === 'upcoming'}
                 checked={this.state.billChamber === 'both' && this.state.billType !== 'upcoming'}/>
                   Both
             </label>

@@ -9,5 +9,8 @@ const logout = () => {
 const registerUser = (user) => {
   return firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
 };
+const getUid = () => {
+  return firebase.auth().currentUser.uid;
+};
 
-export default {logout, loginUser, registerUser};
+export default {logout, loginUser, registerUser, getUid};

@@ -2,11 +2,14 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import './Register.css';
 import authReqs from '../../firebase/auth';
+import userReqs from '../../firebase/users';
+import formatAddress from '../../helpers';
 
 class Register extends React.Component {
   state = {
     user: {
       email: '',
+      username: '',
       password: '',
       street: '',
       city: '',
@@ -17,6 +20,11 @@ class Register extends React.Component {
   onEmail = (e) => {
     const {user} = {...this.state};
     user.email = e.target.value;
+    this.setState({user});
+  }
+  onUserName = (e) => {
+    const {user} = {...this.state};
+    user.username = e.target.value;
     this.setState({user});
   }
   onPassword = (e) => {
@@ -47,13 +55,24 @@ class Register extends React.Component {
   onRegisterClick = (e) => {
     e.preventDefault();
     const {user} = this.state;
-    authReqs
-      .registerUser(user)
-      .then(user => {
-        this.props.history.push('/bills');
+    Promise.all([authReqs.registerUser(user), userReqs.getDistrictByAddress(formatAddress(user))])
+      .then(results => {
+        const userObj = {
+          ...results[1],
+          username: user.username,
+          uid: authReqs.getUid(),
+        };
+        userReqs
+          .postUser(userObj)
+          .then(() => {
+            this.props.history.push('/bills');
+          })
+          .catch(err => {
+            console.error('Error posting user data', err);
+          });
       })
       .catch(err => {
-        console.error('Error registering account', err);
+        console.error('error in user registration', err);
       });
   }
   render () {
@@ -67,6 +86,11 @@ class Register extends React.Component {
                 <div className="form-group">
                   <div className="col-sm-12">
                     <input onChange={this.onEmail} value={this.state.user.email} type="email" className="form-control text-center" placeholder="Email" />
+                  </div>
+                </div>
+                <div className="form-group">
+                  <div className="col-sm-12">
+                    <input onChange={this.onUserName} value={this.state.user.username} type="text" className="form-control text-center" placeholder="Name" />
                   </div>
                 </div>
                 <div className="form-group">

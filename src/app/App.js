@@ -73,7 +73,7 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
           <div>
-            <Navbar signOff={this.signOff}/>
+            <Navbar authed={this.state.authed} signOff={this.signOff}/>
             <Switch>
               <Route path="/" exact component={Home} />
               <PublicRoute path="/login" authed={this.state.authed} component={Login} />

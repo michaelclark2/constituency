@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 
 class NavLink extends React.Component {
   render () {
-    const isActive = this.context.router.route.location.pathname === this.props.to;
+    const pathname = this.context.router.route.location.pathname;
+    const isActive = pathname === this.props.to || ('/' + pathname.split('/')[1] === this.props.to);
     const className = isActive ? 'active' : '';
 
     return (

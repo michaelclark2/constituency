@@ -6,5 +6,8 @@ const loginUser = (user) => {
 const logout = () => {
   return firebase.auth().signOut();
 };
+const registerUser = (user) => {
+  return firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
+};
 
-export default {logout, loginUser};
+export default {logout, loginUser, registerUser};

@@ -65,12 +65,15 @@ class App extends React.Component {
   componentWillUnmount () {
     this.checkLogin();
   }
+  signOff = () => {
+    this.setState({authed: false});
+  }
   render () {
     return (
       <div className="App">
         <BrowserRouter>
           <div>
-            <Navbar />
+            <Navbar signOff={this.signOff}/>
             <Switch>
               <Route path="/" exact component={Home} />
               <PublicRoute path="/login" authed={this.state.authed} component={Login} />

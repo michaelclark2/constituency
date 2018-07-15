@@ -1,5 +1,6 @@
 import React from 'react';
 import {Route, BrowserRouter, Redirect, Switch} from 'react-router-dom';
+import firebase from 'firebase';
 import './App.css';
 
 import Navbar from '../components/Navbar/Navbar';
@@ -9,6 +10,9 @@ import VotesPage from '../components/VotesPage/VotesPage';
 import IndividualBillPage from '../components/IndividualBillPage/IndividualBillPage';
 import Register from '../components/Register/Register';
 import Login from '../components/Login/Login';
+
+import connection from '../firebase/connection';
+connection();
 
 const PrivateRoute = ({component: Component, authed, ...rest}) => {
   return (
@@ -46,14 +50,30 @@ const PublicRoute = ({ component: Component, authed, ...rest}) => {
 
 class App extends React.Component {
   state = {
-    authed: true,
+    authed: false,
+  }
+  componentDidMount () {
+    this.checkLogin = firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({authed: true});
+      }
+      else {
+        this.setState({authed: false});
+      }
+    });
+  }
+  componentWillUnmount () {
+    this.checkLogin();
+  }
+  signOff = () => {
+    this.setState({authed: false});
   }
   render () {
     return (
       <div className="App">
         <BrowserRouter>
           <div>
-            <Navbar />
+            <Navbar signOff={this.signOff}/>
             <Switch>
               <Route path="/" exact component={Home} />
               <PublicRoute path="/login" authed={this.state.authed} component={Login} />

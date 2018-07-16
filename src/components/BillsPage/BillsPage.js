@@ -1,5 +1,6 @@
 import React from 'react';
 import NavLink from '../NavLink/NavLink';
+import Bill from '../Bill/Bill';
 import './BillsPage.css';
 
 import {getBills} from '../../apicalls/propublica';
@@ -12,7 +13,7 @@ class BillsPage extends React.Component {
   }
   componentDidUpdate (prevProps, prevState) {
     const {billChamber, billType} = this.state;
-    if (billType !== prevState.billType) {
+    if (billType !== prevState.billType || billChamber !== prevState.billChamber) {
       getBills(billChamber, billType)
         .then(bills => {
           this.setState({bills});
@@ -33,7 +34,7 @@ class BillsPage extends React.Component {
   render () {
     const billsComponents = this.state.bills.map(bill => {
       return (
-        <h1 key={bill.bill_id} >{bill.bill_slug}</h1>
+        <Bill key={bill.bill_id} bill={bill} type={this.state.billType} />
       );
     });
     return (
@@ -68,7 +69,7 @@ class BillsPage extends React.Component {
                 type="radio"
                 name="chamberSelect"
                 value="senate"
-                checked={this.state.billChamber === 'senate' || this.state.billType === 'upcoming'}
+                checked={this.state.billChamber === 'senate'}
               /> Senate
             </label>
             <label className="radio-inline">

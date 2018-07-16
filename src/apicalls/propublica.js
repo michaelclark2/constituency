@@ -21,5 +21,19 @@ const getBills = (billChamber, billType) => {
       });
   });
 };
+const searchBills = (query) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`https://api.propublica.org/congress/v1/bills/search.json?query=${query}`, {
+        headers: constants.propublicaApiKey,
+      })
+      .then(res => {
+        resolve(res.data.results[0].bills);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
 
-export {getBills};
+export {getBills, searchBills};

@@ -3,13 +3,14 @@ import NavLink from '../NavLink/NavLink';
 import Bill from '../Bill/Bill';
 import './BillsPage.css';
 
-import {getBills} from '../../apicalls/propublica';
+import {getBills, searchBills} from '../../apicalls/propublica';
 
 class BillsPage extends React.Component {
   state = {
     bills: [],
     billChamber: '',
     billType: '',
+    searchQuery: '',
   }
   componentDidUpdate (prevProps, prevState) {
     const {billChamber, billType} = this.state;
@@ -19,6 +20,20 @@ class BillsPage extends React.Component {
           this.setState({bills});
         });
     }
+  }
+  searchBills = (e) => {
+    if (e.key === 'Enter') {
+      searchBills(this.state.searchQuery)
+        .then(bills => {
+          this.setState({bills});
+        })
+        .catch(err => {
+          console.error('Error searching for bills', err);
+        });
+    }
+  }
+  searchInput = (e) => {
+    this.setState({searchQuery: e.target.value});
   }
   changeChamber = (e) => {
     this.setState({billChamber: e.target.value});
@@ -41,7 +56,7 @@ class BillsPage extends React.Component {
       <div className="BillsPage container-fluid">
         <div className="row search-bar">
           <div className="col-sm-6 col-sm-offset-3">
-            <input type="text" className="form-control text-center" placeholder="Search..."/>
+            <input onKeyPress={this.searchBills} onChange={this.searchInput} value={this.state.searchQuery} type="text" className="form-control text-center" placeholder="Search..."/>
           </div>
         </div>
         <div className="col-xs-12 main">

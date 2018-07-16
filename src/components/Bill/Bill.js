@@ -3,6 +3,8 @@ import moment from 'moment';
 import Parser from 'html-react-parser';
 import './Bill.css';
 
+import Ballot from '../Ballot/Ballot';
+
 class Bill extends React.Component {
   render () {
     const {bill} = this.props;
@@ -45,8 +47,7 @@ class Bill extends React.Component {
           </div>
           <h1 className="text-center">Cast your vote!</h1>
           <div className="panel-footer">
-            <button className="btn btn-primary pull-left">Yes</button>
-            <button className="btn btn-danger pull-right">No</button>
+            <Ballot bill={bill} />
           </div>
         </div>
       </div>

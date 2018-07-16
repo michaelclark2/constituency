@@ -34,7 +34,7 @@ class BillsPage extends React.Component {
   render () {
     const billsComponents = this.state.bills.map(bill => {
       return (
-        <Bill key={bill.bill_id} bill={bill} type={this.state.billType} />
+        <Bill key={bill.bill_id} bill={bill} />
       );
     });
     return (

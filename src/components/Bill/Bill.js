@@ -5,8 +5,8 @@ import './Bill.css';
 
 class Bill extends React.Component {
   render () {
-    const {bill, type} = this.props;
-    if (type === 'upcoming') {
+    const {bill} = this.props;
+    if (bill.range) {
       return (
         <div className="Bill col-xs-12">
           <div className="panel panel-default clearfix">

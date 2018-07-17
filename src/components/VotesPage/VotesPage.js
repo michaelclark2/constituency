@@ -27,7 +27,7 @@ class VotesPage extends React.Component {
     });
     return (
       <div className="VotesPage container-fluid">
-        <h1 className="text-center">Votes Page</h1>
+        <h1 className="text-center">My Votes</h1>
         {voteComponents}
       </div>
     );

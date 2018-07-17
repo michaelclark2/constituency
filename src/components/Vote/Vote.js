@@ -2,6 +2,7 @@ import React from 'react';
 import './Vote.css';
 import authReqs from '../../firebase/auth';
 import {updateVote} from '../../firebase/votes';
+import VoteTallyBar from '../VoteTallyBar/VoteTallyBar';
 
 class Vote extends React.Component {
   changePosition = (e) => {
@@ -15,23 +16,7 @@ class Vote extends React.Component {
       });
   }
   render () {
-    const {vote, allVotes} = this.props;
-    const countVotes = () => {
-      const votePositions = {
-        for: 0,
-        against: 0,
-      };
-      allVotes.forEach(currVote => {
-        if (currVote.billSlug === vote.billSlug) {
-          if (currVote.position) {
-            votePositions.for++;
-          } else if (!currVote.position) {
-            votePositions.against++;
-          }
-        }
-      });
-      return votePositions;
-    };
+    const {vote} = this.props;
     if (vote.uid === authReqs.getUid()) {
       return (
         <div className="Vote col-xs-12">
@@ -47,8 +32,7 @@ class Vote extends React.Component {
             </div>
             <div className="panel-body">
               <h2>{vote.billTitle}</h2>
-              <p>For: {countVotes().for}</p>
-              <p>Against: {countVotes().against}</p>
+              <VoteTallyBar props={this.props} />
             </div>
           </div>
         </div>

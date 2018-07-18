@@ -7,6 +7,8 @@ import formatAddress from '../../helpers';
 
 class Register extends React.Component {
   state = {
+    isError: false,
+    errorMsg: '',
     user: {
       email: '',
       username: '',
@@ -45,35 +47,63 @@ class Register extends React.Component {
   onState = (e) => {
     const {user} = {...this.state};
     user.state = e.target.value;
-    this.setState({user});
+    if (e.target.value.length <= 2) {
+      this.setState({user});
+    }
   }
   onZip = (e) => {
     const {user} = {...this.state};
-    user.zip = e.target.value;
-    this.setState({user});
+    const zip = Number(e.target.value) || '';
+    user.zip = zip;
+    if (e.target.value.length <= 5 && !isNaN(zip)) {
+      this.setState({user});
+    }
   }
   onRegisterClick = (e) => {
     e.preventDefault();
     const {user} = this.state;
-    Promise.all([authReqs.registerUser(user), userReqs.getDistrictByAddress(formatAddress(user))])
-      .then(results => {
-        const userObj = {
-          ...results[1],
-          username: user.username,
-          uid: authReqs.getUid(),
-        };
-        userReqs
-          .postUser(userObj)
-          .then(() => {
-            this.props.history.push('/bills');
+    userReqs.getDistrictByAddress(formatAddress(user))
+      .then(stateAndDistrict => {
+        userReqs.getUsers()
+          .then(allUsers => {
+            const uniqueUsername = allUsers.filter(x => x.username === user.username);
+            console.log(uniqueUsername);
+            if (uniqueUsername.length === 0) {
+              authReqs.registerUser(user)
+                .then(res => {
+                  const userObj = {
+                    ...stateAndDistrict,
+                    username: user.username,
+                    uid: authReqs.getUid(),
+                  };
+                  userReqs
+                    .postUser(userObj)
+                    .then(() => {
+                      this.props.history.push('/bills');
+                    })
+                    .catch(err => {
+                      console.error('Error posting user data', err);
+                    });
+                })
+                .catch(err => {
+                  this.setState({isError: true, errorMsg: err.message});
+                });
+            }
+            else {
+              throw new Error();
+            }
           })
           .catch(err => {
-            console.error('Error posting user data', err);
+            this.setState({isError: true, errorMsg: 'The username "' + user.username + '" is taken.  Please try another'});
           });
       })
       .catch(err => {
+        this.setState({isError: true, errorMsg: 'Please enter a valid mailing address'});
         console.error('error in user registration', err);
       });
+  }
+  componentWillUnmount () {
+    this.setState({isError: false, errorMsg: ''});
   }
   render () {
     return (
@@ -82,6 +112,15 @@ class Register extends React.Component {
           <div className="panel panel-primary text-center">
             <div className="panel-body">
               <h1>Register</h1>
+              {
+                this.state.isError ? (
+                  <div className="alert alert-danger">
+                    {this.state.errorMsg}
+                  </div>
+                ) : (
+                  ''
+                )
+              }
               <form className="form-horizontal">
                 <div className="form-group">
                   <div className="col-sm-12">

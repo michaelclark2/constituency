@@ -7,6 +7,8 @@ import msgReqs from '../../firebase/messages';
 class CommentInput extends React.Component {
   state = {
     comment: '',
+    isError: false,
+    isSuccess: false,
   }
   commentChange = (e) => {
     const comment = e.target.value;
@@ -22,26 +24,47 @@ class CommentInput extends React.Component {
     const commentToSend = {
       post: comment,
       billSlug: this.props.bill.bill_slug,
-      uid,
       position,
       ...user,
       date: moment(),
     };
-    msgReqs
-      .postMessage(commentToSend)
-      .then(res => {
-        this.props.getMsgs();
-        this.setState({comment: ''});
-      })
-      .catch(err => {
-        console.error('Error sending comment', err);
-      });
+    if (commentToSend.post) {
+      msgReqs
+        .postMessage(commentToSend)
+        .then(res => {
+          this.props.getMsgs();
+          this.setState({comment: '', isSuccess: true, isError: false});
+        })
+        .catch(err => {
+          console.error('Error sending comment', err);
+        });
+    } else {
+      this.setState({isError: true, errorMsg: 'Please enter a comment'});
+    }
   }
   render () {
     return (
       <div className="CommentInput">
         <div className="thumbnail">
           <form className="caption">
+            {
+              this.state.isError ? (
+                <div className="alert alert-danger">
+                  {this.state.errorMsg}
+                </div>
+              ) : (
+                ''
+              )
+            }
+            {
+              this.state.isSuccess ? (
+                <div className="alert alert-success">
+                  Comment posted!
+                </div>
+              ) : (
+                ''
+              )
+            }
             <textarea onChange={this.commentChange} className="form-control" rows="5" type="text" value={this.state.comment}></textarea>
             <button onClick={this.sendComment} type="submit" className="form-control btn btn-primary">Send</button>
           </form>

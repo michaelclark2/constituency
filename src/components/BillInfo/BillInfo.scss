@@ -1,4 +1,8 @@
 .BillInfo {
-  .bill-title {
+  .activity-container {
+    max-height: 400px;
+    overflow: auto;
+    background-color: #eee;
+    padding-top: 20px;
   }
 }

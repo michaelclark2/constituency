@@ -20,9 +20,8 @@ class BillTallyBar extends React.Component {
     };
     const voteTally = countVotes();
     const totalVotes = voteTally.for + voteTally.against;
-    const percentFor = (voteTally.for / totalVotes) * 100;
-    const percentAgainst = (voteTally.against / totalVotes) * 100;
-
+    const percentFor = (voteTally.for / totalVotes) * 100 || 0;
+    const percentAgainst = (voteTally.against / totalVotes) * 100 || 0;
     return (
       <div className="BillTallyBar">
         <div className="tally">

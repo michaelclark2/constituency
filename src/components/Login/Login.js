@@ -6,6 +6,8 @@ import authReqs from '../../firebase/auth';
 
 class Login extends React.Component {
   state = {
+    isError: false,
+    errorMsg: '',
     user: {
       email: '',
       password: '',
@@ -20,6 +22,7 @@ class Login extends React.Component {
         this.props.history.push('/bills');
       })
       .catch(err => {
+        this.setState({isError: true, errorMsg: err.message});
         console.error('There was an error logging in', err);
       });
   }
@@ -31,10 +34,19 @@ class Login extends React.Component {
   render () {
     return (
       <div className="Login container">
-        <div className="col-md-4 col-md-offset-4">
+        <div className="col-md-6 col-md-offset-3">
           <div className="panel panel-primary text-center">
             <div className="panel-body">
               <h1>Login</h1>
+              {
+                this.state.isError ? (
+                  <div className="alert alert-danger">
+                    {this.state.errorMsg}
+                  </div>
+                ) : (
+                  ''
+                )
+              }
               <form className="form-horizontal">
                 <div className="form-group">
                   <div className="col-sm-12">

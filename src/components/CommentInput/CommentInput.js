@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import './CommentInput.css';
 
 import msgReqs from '../../firebase/messages';
@@ -24,10 +25,12 @@ class CommentInput extends React.Component {
       uid,
       position,
       ...user,
+      date: moment(),
     };
     msgReqs
       .postMessage(commentToSend)
       .then(res => {
+        this.props.getMsgs();
         this.setState({comment: ''});
       })
       .catch(err => {
@@ -40,7 +43,7 @@ class CommentInput extends React.Component {
         <div className="thumbnail">
           <form className="caption">
             <textarea onChange={this.commentChange} className="form-control" rows="5" type="text" value={this.state.comment}></textarea>
-            <button onClick={this.sendComment} type="submit" className="form-control btn btn-default">Send</button>
+            <button onClick={this.sendComment} type="submit" className="form-control btn btn-primary">Send</button>
           </form>
         </div>
       </div>

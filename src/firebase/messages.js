@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 import constants from '../constants';
 
 const getMessages = (billSlug) => {
@@ -14,6 +15,17 @@ const getMessages = (billSlug) => {
             allMessages.push(data[key]);
           });
         }
+        allMessages.sort((a, b) => {
+          a = moment(a.date);
+          b = moment(b.date);
+          if (a.isBefore(b)) {
+            return 1;
+          } else if (b.isBefore(a)) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
         resolve(allMessages);
       })
       .catch(err => {

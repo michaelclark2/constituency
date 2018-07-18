@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import Parser from 'html-react-parser';
+import {Link} from 'react-router-dom';
 import './Bill.css';
 
 import Ballot from '../Ballot/Ballot';
@@ -35,10 +36,10 @@ class Bill extends React.Component {
         <div className="panel panel-default clearfix">
           <div className="panel-heading clearfix">
             <h3 className="pull-left">{bill.number}</h3>
-            <h3 className="pull-right">{bill.sponsor_title} {bill.sponsor_name}, {bill.sponsor_state} <em>with {bill.cosponsors} cosponsors</em></h3>
+            <h3 className="pull-right">{bill.sponsor_title} {bill.sponsor_name || bill.sponsor}, {bill.sponsor_state} <em>with {bill.cosponsors} cosponsors</em></h3>
           </div>
           <div className="panel-body">
-            <h2>{bill.short_title}</h2>
+            <h2><Link to={{pathname: '/bill/' + bill.bill_slug, uri: bill.bill_uri}}>{bill.short_title}</Link></h2>
             <p><strong>Summary: </strong>{bill.summary_short ? Parser(bill.summary_short) : 'No summary currently available'}</p>
             <p><strong>Committees: </strong>{bill.committees}</p>
             <p><strong>Introduced: </strong>{moment(bill.introduced_date).format('LL')}</p>

@@ -33,13 +33,20 @@ const getVotes = () => {
       });
   });
 };
-const getSingleVote = (id) => {
+const getVotesBySlug = (slug) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${constants.firebaseConfig.databaseURL}/votes/${id}.json`)
+      .get(`${constants.firebaseConfig.databaseURL}/votes.json?orderBy="billSlug"&equalTo="${slug}"`)
       .then(res => {
-        res.data.id = id;
-        resolve(res.data);
+        const data = res.data;
+        const allVotes = [];
+        if (data !== null) {
+          Object.keys(data).forEach(key => {
+            data[key].id = key;
+            allVotes.push(data[key]);
+          });
+        }
+        resolve(allVotes);
       })
       .catch(err => {
         reject(err);
@@ -62,4 +69,4 @@ const updateVote = (voteObj) => {
   });
 };
 
-export {castVote, getVotes, getSingleVote, updateVote};
+export {castVote, getVotes, getVotesBySlug, updateVote};

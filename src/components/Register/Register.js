@@ -64,24 +64,37 @@ class Register extends React.Component {
     const {user} = this.state;
     userReqs.getDistrictByAddress(formatAddress(user))
       .then(stateAndDistrict => {
-        authReqs.registerUser(user)
-          .then(res => {
-            const userObj = {
-              ...stateAndDistrict,
-              username: user.username,
-              uid: authReqs.getUid(),
-            };
-            userReqs
-              .postUser(userObj)
-              .then(() => {
-                this.props.history.push('/bills');
-              })
-              .catch(err => {
-                console.error('Error posting user data', err);
-              });
+        userReqs.getUsers()
+          .then(allUsers => {
+            const uniqueUsername = allUsers.filter(x => x.username === user.username);
+            console.log(uniqueUsername);
+            if (uniqueUsername.length === 0) {
+              authReqs.registerUser(user)
+                .then(res => {
+                  const userObj = {
+                    ...stateAndDistrict,
+                    username: user.username,
+                    uid: authReqs.getUid(),
+                  };
+                  userReqs
+                    .postUser(userObj)
+                    .then(() => {
+                      this.props.history.push('/bills');
+                    })
+                    .catch(err => {
+                      console.error('Error posting user data', err);
+                    });
+                })
+                .catch(err => {
+                  this.setState({isError: true, errorMsg: err.message});
+                });
+            }
+            else {
+              throw new Error();
+            }
           })
           .catch(err => {
-            this.setState({isError: true, errorMsg: err.message});
+            this.setState({isError: true, errorMsg: 'The username "' + user.username + '" is taken.  Please try another'});
           });
       })
       .catch(err => {

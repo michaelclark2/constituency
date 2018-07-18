@@ -45,5 +45,17 @@ const postMessage = (msg) => {
       });
   });
 };
+const deleteComment = (msgId) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(`${constants.firebaseConfig.databaseURL}/messages/${msgId}.json`)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
 
-export default {postMessage, getMessages};
+export default {postMessage, getMessages, deleteComment};

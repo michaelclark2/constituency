@@ -44,7 +44,7 @@ class MessageBoard extends React.Component {
   render () {
     const comments = this.state.messages.map(comment => {
       return (
-        <Comment key={comment.id} comment={comment} />
+        <Comment key={comment.id} comment={comment} getMsgs={this.getAllMessages} />
       );
     });
     return (

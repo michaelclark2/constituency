@@ -2,10 +2,21 @@ import React from 'react';
 import moment from 'moment';
 import './Comment.css';
 import authReqs from '../../firebase/auth';
+import msgReqs from '../../firebase/messages';
 
 class Comment extends React.Component {
   render () {
-    const {comment} = this.props;
+    const {comment, getMsgs} = this.props;
+    const removeComment = (e) => {
+      msgReqs
+        .deleteComment(comment.id)
+        .then(res => {
+          getMsgs();
+        })
+        .catch(err => {
+          console.error('Error deleting message', err);
+        });
+    };
     return (
       <div className="Comment">
         <div className="panel panel-default">
@@ -27,7 +38,7 @@ class Comment extends React.Component {
                 }</h6>
                 {
                   comment.uid === authReqs.getUid() ? (
-                    <button className="btn btn-default">Remove</button>
+                    <button className="btn btn-sm btn-default" onClick={removeComment}>Remove</button>
                   ) : (
                     ''
                   )

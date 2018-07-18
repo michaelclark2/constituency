@@ -35,5 +35,19 @@ const searchBills = (query) => {
       });
   });
 };
+const getIndividualBill = (uri) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(uri, {
+        headers: constants.propublicaApiKey,
+      })
+      .then(res => {
+        resolve(res.data.results[0]);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
 
-export {getBills, searchBills};
+export {getIndividualBill, getBills, searchBills};

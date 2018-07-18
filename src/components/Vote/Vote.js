@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import './Vote.css';
 import authReqs from '../../firebase/auth';
 import {updateVote} from '../../firebase/votes';
@@ -31,7 +32,7 @@ class Vote extends React.Component {
                 )}
             </div>
             <div className="panel-body">
-              <h2>{vote.billTitle}</h2>
+              <h2><Link to={{pathname: '/bill/' + vote.billSlug, uri: vote.billUri}} >{vote.billTitle}</Link></h2>
               <VoteTallyBar props={this.props} />
             </div>
           </div>

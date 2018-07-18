@@ -4,10 +4,11 @@ import Parser from 'html-react-parser';
 import './BillInfo.css';
 
 import BillTallyBar from '../BillTallyBar/BillTallyBar';
+import MessageBoard from '../MessageBoard/MessageBoard';
 
 class BillInfo extends React.Component {
   render () {
-    const {bill} = this.props;
+    const {bill, votes} = this.props;
     let actionComponents = [];
     if (bill.actions) {
       actionComponents = bill.actions.map(action => {
@@ -34,7 +35,7 @@ class BillInfo extends React.Component {
           <h1>{bill.number}</h1>
           <h2>{bill.sponsor_title} {bill.sponsor_name || bill.sponsor}, {bill.sponsor_state} <em>with {bill.cosponsors} cosponsors</em></h2>
           <h2>{bill.title}</h2>
-          <BillTallyBar bill={bill} votes={this.props.votes} />
+          <BillTallyBar bill={bill} votes={votes} />
         </div>
         <div className="bill-body text-center col-xs-12">
           <h3>Committees</h3>
@@ -51,9 +52,7 @@ class BillInfo extends React.Component {
           </div>
           <div className="col-xs-12">
             <h3>Leave a Comment</h3>
-            <div className="message-container">
-              {/* messages component goes here */}
-            </div>
+            <MessageBoard bill={bill} votes={votes} />
           </div>
         </div>
       </div>

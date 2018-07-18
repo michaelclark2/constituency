@@ -1,6 +1,38 @@
 import axios from 'axios';
+import moment from 'moment';
 import constants from '../constants';
 
+const getMessages = (billSlug) => {
+  return new Promise((resolve,reject) => {
+    axios
+      .get(`${constants.firebaseConfig.databaseURL}/messages.json?orderBy="billSlug"&equalTo="${billSlug}"`)
+      .then(res => {
+        const data = res.data;
+        const allMessages = [];
+        if (data !== null) {
+          Object.keys(data).forEach(key => {
+            data[key].id = key;
+            allMessages.push(data[key]);
+          });
+        }
+        allMessages.sort((a, b) => {
+          a = moment(a.date);
+          b = moment(b.date);
+          if (a.isBefore(b)) {
+            return 1;
+          } else if (b.isBefore(a)) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        resolve(allMessages);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
 const postMessage = (msg) => {
   return new Promise((resolve, reject) => {
     axios
@@ -14,4 +46,4 @@ const postMessage = (msg) => {
   });
 };
 
-export default {postMessage};
+export default {postMessage, getMessages};

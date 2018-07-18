@@ -1,6 +1,19 @@
 import axios from 'axios';
 import constants from '../constants';
 
+const getUserInfo = (id) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${constants.firebaseConfig.databaseURL}/users.json?orderBy="uid"&equalTo="${id}"`)
+      .then(res => {
+        const data = Object.values(res.data)[0];
+        resolve(data);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
 const postUser = (user) => {
   return new Promise((resolve, reject) => {
     axios
@@ -36,4 +49,4 @@ const getDistrictByAddress = (address) => {
   });
 };
 
-export default {postUser, getDistrictByAddress};
+export default {getUserInfo, postUser, getDistrictByAddress};

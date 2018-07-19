@@ -4,13 +4,18 @@ import Bill from '../Bill/Bill';
 import './BillsPage.css';
 
 import {getBills, searchBills} from '../../apicalls/propublica';
+import {getVotes} from '../../firebase/votes';
 
 class BillsPage extends React.Component {
   state = {
     bills: [],
+    votes: [],
     billChamber: '',
     billType: '',
     searchQuery: '',
+  }
+  componentDidMount () {
+    this.updateVotes();
   }
   componentDidUpdate (prevProps, prevState) {
     const {billChamber, billType} = this.state;
@@ -20,6 +25,15 @@ class BillsPage extends React.Component {
           this.setState({bills});
         });
     }
+  }
+  updateVotes = () => {
+    getVotes()
+      .then(votes => {
+        this.setState({votes});
+      })
+      .catch(err => {
+        console.error('Error getting votes', err);
+      });
   }
   searchBills = (e) => {
     if (e.key === 'Enter') {
@@ -49,7 +63,7 @@ class BillsPage extends React.Component {
   render () {
     const billsComponents = this.state.bills.map(bill => {
       return (
-        <Bill key={bill.bill_id} bill={bill} />
+        <Bill key={bill.bill_id} bill={bill} votes={this.state.votes} updateVotes={this.updateVotes} />
       );
     });
     return (

@@ -8,27 +8,55 @@ class Ballot extends React.Component {
   state = {
     isCast: false,
   }
+  componentDidMount () {
+    const {bill, votes} = this.props;
+    this.isVoted = votes.find(x => {
+      if ((x.billSlug === bill.bill_slug) && (x.uid === authReqs.getUid())) {
+        return x;
+      }
+      return null;
+    });
+    if (this.isVoted) {
+      this.setState({isCast: true});
+    }
+  }
   render () {
-    const {bill} = this.props;
+    const {bill, updateVotes} = this.props;
     const castBallot = (e) => {
       const vote = {
         uid: authReqs.getUid(),
         position: e.target.id === 'yes',
-        billTitle: bill.title,
+        billTitle: bill.title || (bill.context || bill.description),
         billSlug: bill.bill_slug,
         billNumber: bill.number || bill.bill_number,
-        billUri: bill.bill_uri,
+        billUri: bill.bill_uri || bill.api_uri,
       };
       castVote(vote)
         .then(() => {
-          this.setState({isCast: true})
+          return updateVotes();
         })
         .catch();
-    }
+    };
     return (
       <div className="Ballot">
-        <button onClick={castBallot} className="btn btn-primary pull-left" id="yes" disabled={this.state.isCast}>Yes</button>
-        <button onClick={castBallot} className="btn btn-danger pull-right" id="no" disabled={this.state.isCast}>No</button>
+        {
+          this.state.isCast ? (
+            <div>
+              {
+                this.isVoted.position ? (
+                  'You voted For'
+                ) : (
+                  'You voted Against'
+                )
+              }
+            </div>
+          ) : (
+            <div>
+              <button onClick={castBallot} className="btn btn-primary pull-left" id="yes">Yea</button>
+              <button onClick={castBallot} className="btn btn-danger pull-right" id="no">Nay</button>
+            </div>
+          )
+        }
       </div>
     );
   }

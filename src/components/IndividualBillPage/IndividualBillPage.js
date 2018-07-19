@@ -14,22 +14,27 @@ class IndividualBillPage extends React.Component {
   componentDidMount () {
     getIndividualBill(this.props.location.uri)
       .then(bill => {
-        getVotesBySlug(bill.bill_slug)
-          .then(votes => {
-            this.setState({bill, votes});
-          })
-          .catch(err => {
-            console.error('Error getting votes by bill slug');
-          });
+        this.setState({bill});
+        this.updateVotes();
       })
       .catch(err => {
         console.error('Error getting individual bill', err);
       });
   }
+  updateVotes = () => {
+    const {bill} = this.state;
+    getVotesBySlug(bill.bill_slug)
+      .then(votes => {
+        this.setState({votes});
+      })
+      .catch(err => {
+        console.error('Error getting votes by bill slug');
+      });
+  }
   render () {
     return (
       <div className="IndividualBillPage container-fluid">
-        <BillInfo bill={this.state.bill} votes={this.state.votes}/>
+        <BillInfo bill={this.state.bill} votes={this.state.votes} updateVotes={this.updateVotes}/>
       </div>
     );
   }

@@ -4,6 +4,7 @@ import Parser from 'html-react-parser';
 import './BillInfo.css';
 
 import BillTallyBar from '../BillTallyBar/BillTallyBar';
+import Ballot from '../Ballot/Ballot';
 import MessageBoard from '../MessageBoard/MessageBoard';
 
 class BillInfo extends React.Component {
@@ -36,16 +37,20 @@ class BillInfo extends React.Component {
           <h2>{bill.sponsor_title} {bill.sponsor_name || bill.sponsor}, {bill.sponsor_state} <em>with {bill.cosponsors} cosponsors</em></h2>
           <h2>{bill.title}</h2>
           <BillTallyBar bill={bill} votes={votes} />
+          <Ballot bill={bill} votes={votes} updateVotes={this.props.updateVotes}/>
         </div>
         <div className="bill-body text-center col-xs-12">
-          <h3>Committees</h3>
-          <h4>{bill.committees}</h4>
-          <h3>Summary</h3>
           <div className="col-xs-12">
-            <p className="text-left">{bill.summary ? Parser(bill.summary) : 'No summary currently available'}</p>
+            <h3>Committees</h3>
+            <h4>{bill.committees}</h4>
           </div>
           <div className="col-xs-12">
-            <h3>Recent Activity</h3>
+            <h3>Summary</h3>
+            <p className="text-left">{bill.summary ? Parser(bill.summary) : 'No summary currently available'}</p>
+            <a className="btn btn-info" href={bill.congressdotgov_url + '/text'}>View Full Bill Text</a>
+          </div>
+          <div className="col-xs-12">
+            <h3>Bill History</h3>
             <div className="activity-container">
               {actionComponents}
             </div>

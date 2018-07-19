@@ -17,15 +17,19 @@ class Bill extends React.Component {
               <h3 className="pull-left">{bill.bill_number}</h3>
             </div>
             <div className="panel-body">
-              <h2>{bill.short_title}</h2>
-              <p><strong>Summary: </strong>{bill.chamber === 'senate' ? Parser(bill.context) : Parser(bill.description)}</p>
+              {
+                bill.chamber === 'senate' ? (
+                  <h2><Link to={{pathname: '/bill/' + bill.bill_slug, uri: bill.api_uri}}>{Parser(bill.context)}</Link></h2>
+                ) : (
+                  <h2><Link to={{pathname: '/bill/' + bill.bill_slug, uri: bill.api_uri}}>{Parser(bill.description)}</Link></h2>
+                )
+              }
               <p><strong>Introduced: </strong>{moment(bill.introduced_date).format('LL')}</p>
               <p><strong>Scheduled for: </strong>{moment(bill.legislative_day).format('LL')}: {bill.consideration}</p>
             </div>
             <h1 className="text-center">Cast your vote!</h1>
             <div className="panel-footer">
-              <button className="btn btn-primary pull-left">Yes</button>
-              <button className="btn btn-danger pull-right">No</button>
+              <Ballot bill={bill} votes={this.props.votes} updateVotes={this.props.updateVotes}/>
             </div>
           </div>
         </div>
@@ -48,7 +52,7 @@ class Bill extends React.Component {
           </div>
           <h1 className="text-center">Cast your vote!</h1>
           <div className="panel-footer">
-            <Ballot bill={bill} />
+            <Ballot bill={bill} votes={this.props.votes} />
           </div>
         </div>
       </div>

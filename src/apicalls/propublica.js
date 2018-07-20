@@ -1,12 +1,13 @@
 import axios from 'axios';
 import constants from '../constants';
 
-const getBills = (billChamber, billType) => {
+const getBills = (billChamber, billType, offset = 0) => {
   let url = '';
-  if (billType !== 'upcoming') {
-    url = `https://api.propublica.org/congress/v1/115/${billChamber}/bills/${billType}.json`;
-  } else {
+  offset = offset * 20;
+  if (billType === 'upcoming') {
     url = `https://api.propublica.org/congress/v1/bills/upcoming/${billChamber}.json`;
+  } else {
+    url = `https://api.propublica.org/congress/v1/115/${billChamber}/bills/${billType}.json?offset=${offset}`;
   }
   return new Promise((resolve, reject) => {
     axios

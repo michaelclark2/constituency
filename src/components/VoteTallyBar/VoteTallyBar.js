@@ -1,7 +1,14 @@
 import React from 'react';
 import './VoteTallyBar.css';
 
+import PropTypes from 'prop-types';
+import { voteShape } from '../../props/votes';
+
 class VoteTallyBar extends React.Component {
+  static propTypes = {
+    vote: voteShape,
+    allVotes: PropTypes.arrayOf(voteShape),
+  }
   render () {
     const {vote, allVotes} = this.props;
     const countVotes = () => {

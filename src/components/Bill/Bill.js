@@ -6,7 +6,14 @@ import './Bill.css';
 
 import Ballot from '../Ballot/Ballot';
 
+import PropTypes from 'prop-types';
+import { voteShape } from '../../props/votes';
+
 class Bill extends React.Component {
+  static propTypes = {
+    votes: PropTypes.arrayOf(voteShape),
+    updateVotes: PropTypes.func,
+  }
   render () {
     const {bill} = this.props;
     if (bill.range) {

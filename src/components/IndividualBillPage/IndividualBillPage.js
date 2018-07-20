@@ -76,7 +76,14 @@ class IndividualBillPage extends React.Component {
           </div>
           <div className="col-xs-12">
             <h3>Summary</h3>
-            <p className="text-left">{bill.summary ? Parser(bill.summary) : 'No summary currently available'}</p>
+            {
+              bill.summary ? (
+                <p className="text-left">{Parser(bill.summary)}</p>
+              ) : (
+                <p>No summary currently available</p>
+              )
+            }
+
             <a className="btn btn-info" href={bill.congressdotgov_url + '/text'}>View Full Bill Text</a>
           </div>
           <div className="col-xs-12">

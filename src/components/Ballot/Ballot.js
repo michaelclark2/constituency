@@ -50,10 +50,12 @@ class Ballot extends React.Component {
       billUri: bill.bill_uri || bill.api_uri,
     };
     castVote(vote)
-      .then(() => {
+      .then(res => {
         updateVotes();
       })
-      .catch();
+      .catch(err => {
+        console.error('Error sending vote', err);
+      });
   };
   render () {
     return (
@@ -66,8 +68,8 @@ class Ballot extends React.Component {
           ) : (
             <div>
               <h1 className="text-center">Cast your Vote!</h1>
-              <button onClick={this.castBallot} className="btn btn-primary pull-left" id="yes">Yea</button>
-              <button onClick={this.castBallot} className="btn btn-danger pull-right" id="no">Nay</button>
+              <button onClick={this.castBallot} className="for btn btn-primary pull-left" id="yes">Yea</button>
+              <button onClick={this.castBallot} className="against btn btn-danger pull-right" id="no">Nay</button>
             </div>
           )
         }

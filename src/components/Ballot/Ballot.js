@@ -7,7 +7,14 @@ import VoteTallyBar from '../VoteTallyBar/VoteTallyBar';
 import {castVote} from '../../firebase/votes';
 import authReqs from '../../firebase/auth';
 
+import PropTypes from 'prop-types';
+import { voteShape } from '../../props/votes';
+
 class Ballot extends React.Component {
+  static propTypes = {
+    votes: PropTypes.arrayOf(voteShape),
+    updateVotes: PropTypes.func,
+  }
   state = {
     isCast: false,
     vote: {},

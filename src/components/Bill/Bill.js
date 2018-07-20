@@ -52,7 +52,7 @@ class Bill extends React.Component {
           </div>
           <h1 className="text-center">Cast your vote!</h1>
           <div className="panel-footer">
-            <Ballot bill={bill} votes={this.props.votes} />
+            <Ballot bill={bill} votes={this.props.votes} updateVotes={this.props.updateVotes} />
           </div>
         </div>
       </div>

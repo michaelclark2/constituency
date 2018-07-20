@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import './Register.css';
 import authReqs from '../../firebase/auth';
 import userReqs from '../../firebase/users';
-import formatAddress from '../../helpers';
+import {formatAddress} from '../../helpers';
 
 class Register extends React.Component {
   state = {

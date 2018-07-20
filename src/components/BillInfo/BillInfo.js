@@ -8,6 +8,9 @@ import Ballot from '../Ballot/Ballot';
 import MessageBoard from '../MessageBoard/MessageBoard';
 
 class BillInfo extends React.Component {
+  updateAllVotes = () => {
+    this.props.updateVotes();
+  }
   render () {
     const {bill, votes} = this.props;
     let actionComponents = [];
@@ -37,7 +40,7 @@ class BillInfo extends React.Component {
           <h2>{bill.sponsor_title} {bill.sponsor_name || bill.sponsor}, {bill.sponsor_state} <em>with {bill.cosponsors} cosponsors</em></h2>
           <h2>{bill.title}</h2>
           <BillTallyBar bill={bill} votes={votes} />
-          <Ballot bill={bill} votes={votes} updateVotes={this.props.updateVotes}/>
+          <Ballot bill={bill} votes={votes} updateVotes={this.updateAllVotes}/>
         </div>
         <div className="bill-body text-center col-xs-12">
           <div className="col-xs-12">

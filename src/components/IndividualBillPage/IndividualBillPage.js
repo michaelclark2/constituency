@@ -3,7 +3,6 @@ import moment from 'moment';
 import Parser from 'html-react-parser';
 import './IndividualBillPage.css';
 
-import BillTallyBar from '../BillTallyBar/BillTallyBar';
 import Ballot from '../Ballot/Ballot';
 import MessageBoard from '../MessageBoard/MessageBoard';
 
@@ -68,7 +67,6 @@ class IndividualBillPage extends React.Component {
           <h1>{bill.number}</h1>
           <h2>{bill.sponsor_title} {bill.sponsor_name || bill.sponsor}, {bill.sponsor_state} <em>with {bill.cosponsors} cosponsors</em></h2>
           <h2>{bill.title}</h2>
-          <BillTallyBar bill={bill} votes={votes} />
           <Ballot bill={bill} votes={votes} updateVotes={this.updateVotes}/>
         </div>
         <div className="bill-body text-center col-xs-12">

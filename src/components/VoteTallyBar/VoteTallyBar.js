@@ -3,7 +3,7 @@ import './VoteTallyBar.css';
 
 class VoteTallyBar extends React.Component {
   render () {
-    const {vote, allVotes} = this.props.props;
+    const {vote, allVotes} = this.props;
     const countVotes = () => {
       const votePositions = {
         for: 0,
@@ -56,6 +56,7 @@ class VoteTallyBar extends React.Component {
               )
             }
           </div>
+          Total Votes: {totalVotes}
         </div>
       </div>
     );

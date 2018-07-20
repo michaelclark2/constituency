@@ -2,6 +2,8 @@ import React from 'react';
 import {isEqualVotes} from '../../helpers';
 import './Ballot.css';
 
+import VoteTallyBar from '../VoteTallyBar/VoteTallyBar';
+
 import {castVote} from '../../firebase/votes';
 import authReqs from '../../firebase/auth';
 
@@ -52,16 +54,11 @@ class Ballot extends React.Component {
         {
           this.state.isCast ? (
             <div>
-              {
-                this.state.vote.position ? (
-                  'You voted For'
-                ) : (
-                  'You voted Against'
-                )
-              }
+              <VoteTallyBar vote={this.state.vote} allVotes={this.props.votes} />
             </div>
           ) : (
             <div>
+              <h1 className="text-center">Cast your Vote!</h1>
               <button onClick={this.castBallot} className="btn btn-primary pull-left" id="yes">Yea</button>
               <button onClick={this.castBallot} className="btn btn-danger pull-right" id="no">Nay</button>
             </div>

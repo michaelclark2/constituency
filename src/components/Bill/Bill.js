@@ -50,7 +50,6 @@ class Bill extends React.Component {
             <p><strong>Passage: </strong>Sen: {bill.senate_passage ? moment(bill.senate_passage).format('LL') : 'No Data'} HoR: {bill.house_passage ? moment(bill.house_passage).format('LL') : 'No Data'}</p>
             <p><strong>Latest Action: </strong>{moment(bill.latest_major_action_date).format('LL')}: {bill.latest_major_action}</p>
           </div>
-          <h1 className="text-center">Cast your vote!</h1>
           <div className="panel-footer">
             <Ballot bill={bill} votes={this.props.votes} updateVotes={this.props.updateVotes} />
           </div>

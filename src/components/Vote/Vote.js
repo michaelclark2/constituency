@@ -24,16 +24,20 @@ class Vote extends React.Component {
           <div className="panel panel-default clearfix">
             <div className="panel-heading clearfix">
               <h3 className="pull-left">{vote.billNumber}</h3>
-              {
-                vote.position ? (
-                  <button className="btn btn-primary pull-right" onClick={this.changePosition}>Yes</button>
-                ) : (
-                  <button className="btn btn-danger pull-right" onClick={this.changePosition}>No</button>
-                )}
+              <div className="pull-right">
+                You voted: &nbsp;
+                {
+                  vote.position ? (
+                    <button className="btn btn-primary" onClick={this.changePosition}>Yes</button>
+                  ) : (
+                    <button className="btn btn-danger" onClick={this.changePosition}>No</button>
+                  )
+                }
+              </div>
             </div>
             <div className="panel-body">
               <h2><Link to={{pathname: '/bill/' + vote.billSlug, uri: vote.billUri}} >{vote.billTitle}</Link></h2>
-              <VoteTallyBar props={this.props} />
+              <VoteTallyBar vote={this.props.vote} allVotes={this.props.allVotes} />
             </div>
           </div>
         </div>

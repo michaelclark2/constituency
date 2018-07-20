@@ -12,10 +12,23 @@ class BillsPage extends React.Component {
     votes: [],
     billChamber: '',
     billType: '',
+    offset: 0,
     searchQuery: '',
+  }
+  loadOnScroll = (e) => {
+    if (
+      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight) &&
+      this.state.bills.length
+    ) {
+      this.setState({offset: this.state.offset + 1}, this.appendBills);
+    }
   }
   componentDidMount () {
     this.updateVotes();
+    window.addEventListener('scroll', this.loadOnScroll);
+  }
+  componentWillUnmount () {
+    window.removeEventListener('scroll', this.loadOnScroll);
   }
   componentDidUpdate (prevProps, prevState) {
     const {billChamber, billType} = this.state;
@@ -33,6 +46,13 @@ class BillsPage extends React.Component {
       })
       .catch(err => {
         console.error('Error getting votes', err);
+      });
+  }
+  appendBills = () => {
+    const {billChamber, billType, offset} = this.state;
+    getBills(billChamber, billType, offset)
+      .then(bills => {
+        this.setState({bills: [...this.state.bills, ...bills]});
       });
   }
   searchBills = (e) => {

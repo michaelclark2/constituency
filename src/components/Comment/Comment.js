@@ -45,7 +45,12 @@ class Comment extends React.Component {
                 }
               </div>
               <div className="media-body text-left">
-                <p>{comment.post}</p>
+                <p>
+                  {
+                    comment.post.split('\n').map((post, key) => {
+                      return <span key={key}>{post}<br/></span>;
+                    })
+                  }</p>
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import './Register.css';
 import authReqs from '../../firebase/auth';
 import userReqs from '../../firebase/users';
-import formatAddress from '../../helpers';
+import {formatAddress} from '../../helpers';
 
 class Register extends React.Component {
   state = {
@@ -67,7 +67,6 @@ class Register extends React.Component {
         userReqs.getUsers()
           .then(allUsers => {
             const uniqueUsername = allUsers.filter(x => x.username === user.username);
-            console.log(uniqueUsername);
             if (uniqueUsername.length === 0) {
               authReqs.registerUser(user)
                 .then(res => {

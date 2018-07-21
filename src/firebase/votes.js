@@ -68,5 +68,19 @@ const updateVote = (voteObj) => {
       });
   });
 };
+const getVoteData = (uri) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(uri, {
+        headers: constants.propublicaApiKey,
+      })
+      .then(res => {
+        resolve(res.data.results.votes.vote);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
 
-export {castVote, getVotes, getVotesBySlug, updateVote};
+export {castVote, getVotes, getVoteData, getVotesBySlug, updateVote};

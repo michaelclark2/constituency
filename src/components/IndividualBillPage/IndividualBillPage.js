@@ -8,10 +8,14 @@ import MessageBoard from '../MessageBoard/MessageBoard';
 
 import {getIndividualBill} from '../../apicalls/propublica';
 import {getVotesBySlug} from '../../firebase/votes';
+import userReqs from '../../firebase/users';
+import authReqs from '../../firebase/auth';
+import VoteComparison from '../VoteComparison/VoteComparison';
 
 class IndividualBillPage extends React.Component {
   state = {
     bill: {},
+    user: {},
     votes: [],
   }
   componentDidMount () {
@@ -20,6 +24,7 @@ class IndividualBillPage extends React.Component {
         getVotesBySlug(bill.bill_slug)
           .then(votes => {
             this.setState({bill, votes});
+            this.getUserInfo();
           })
           .catch(err => {
             console.error('Error on individual bill page', err);
@@ -39,9 +44,20 @@ class IndividualBillPage extends React.Component {
         console.error('Error getting votes by bill slug');
       });
   }
+  getUserInfo = () => {
+    userReqs
+      .getUserInfo(authReqs.getUid())
+      .then(user => {
+        this.setState({user});
+      })
+      .catch(err => {
+        console.error('Error getting messages', err);
+      });
+  }
   render () {
     const {bill, votes} = this.state;
     let actionComponents = [];
+    let voteComponents = [];
     if (bill.actions) {
       actionComponents = bill.actions.map(action => {
         return (
@@ -56,6 +72,13 @@ class IndividualBillPage extends React.Component {
               </div>
             </div>
           </div>
+        );
+      });
+    }
+    if (bill.votes) {
+      voteComponents = bill.votes.map(vote => {
+        return (
+          <VoteComparison vote={vote} user={this.state.user} />
         );
       });
     }
@@ -91,9 +114,19 @@ class IndividualBillPage extends React.Component {
               {actionComponents}
             </div>
           </div>
+          {
+            voteComponents.length ? (
+              <div className="col-xs-12 votes">
+                <h3>Vote History</h3>
+                {voteComponents}
+              </div>
+            ) : (
+              ''
+            )
+          }
           <div className="col-xs-12 messages">
             <h3>Leave a Comment</h3>
-            <MessageBoard bill={bill} votes={votes} />
+            <MessageBoard bill={bill} votes={votes} user={this.state.user} />
           </div>
         </div>
       </div>

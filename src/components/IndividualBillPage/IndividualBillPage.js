@@ -83,7 +83,7 @@ class IndividualBillPage extends React.Component {
               )
             }
 
-            <a className="btn btn-info" href={bill.congressdotgov_url + '/text'}>View Full Bill Text</a>
+            <a className="btn btn-info" target="_blank" href={bill.congressdotgov_url + '/text'}>View Full Bill Text</a>
           </div>
           <div className="col-xs-12 activity-container">
             <h3>Bill History</h3>

@@ -132,7 +132,13 @@ class BillsPage extends React.Component {
             </label>
           </div>
           <div className="col-xs-12 bills-container">
-            {billsComponents}
+            {
+              billsComponents.length ? (
+                billsComponents
+              ) : (
+                <h1 className="text-center">Please choose a type of bill.</h1>
+              )
+            }
           </div>
         </div>
       </div>

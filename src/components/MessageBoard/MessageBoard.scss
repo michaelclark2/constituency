@@ -1,5 +1,6 @@
 .MessageBoard {
-  :last-child .panel {
+  :last-child .panel,
+  :last-child .thumbnail {
     margin: 0;
   }
 }

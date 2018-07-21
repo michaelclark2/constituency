@@ -1,44 +1,53 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,700,900');
+
 .Home {
+  font-family: Merriweather;
   width: 100%;
   margin-top: -30px;
   .jumbotron {
     padding: 0;
   }
   img {
-    width: 50%;
-    min-height: 100%;
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    opacity: .5;
-    margin: 0 auto;
+    width: 66%;
+    // min-height: 100%;
+    // display: block;
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+    // right: 0;
+    // opacity: .8;
+    // margin: 0 auto;
   }
   .container {
     position: absolute;
     top: 60px;
     right: 0;
     left: 0;
-
   }
   h1 {
-    font-size: 6em;
+    font-size: 8em;
     font-weight: 800;
-    text-shadow: 0 0 15px #fff;
+    text-shadow: 0 0 30px #fff8;
   }
   p {
     font-weight: 600;
-    text-shadow: 0 0 15px #fff;
-
+    text-shadow: 0 0 15px #fff8;
   }
   ul {
-    list-style-position: inside;
+    list-style: none;
     text-shadow: 0 0 15px #fff;
-    font-size: 1.25em;
-    font-weight: 600;
     margin: 0 auto;
     margin-top: 5em;
     padding: 0;
+    position: absolute;
+    top: 33%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    li {
+      font-weight: 900;
+      font-size: 2em;
+      margin: 1em 0;
+    }
   }
 }

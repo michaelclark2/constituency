@@ -36,15 +36,16 @@ class Comment extends React.Component {
                     'Has not voted'
                   )
                 }</h6>
+
+              </div>
+              <div className="media-body text-left">
                 {
                   comment.uid === authReqs.getUid() ? (
-                    <button className="btn btn-sm btn-default" onClick={removeComment}>Remove</button>
+                    <button className="btn btn-sm btn-default pull-right" onClick={removeComment}><span className="glyphicon glyphicon-remove"></span></button>
                   ) : (
                     ''
                   )
                 }
-              </div>
-              <div className="media-body text-left">
                 <p>
                   {
                     comment.post.split('\n').map((post, key) => {

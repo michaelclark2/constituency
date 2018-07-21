@@ -39,7 +39,7 @@ class CommentInput extends React.Component {
           console.error('Error sending comment', err);
         });
     } else {
-      this.setState({isError: true, errorMsg: 'Please enter a comment'});
+      this.setState({isError: true, isSuccess: false, errorMsg: 'Please enter a comment'});
     }
   }
   render () {

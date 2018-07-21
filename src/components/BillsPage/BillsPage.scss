@@ -1,13 +1,25 @@
 @import '../../styles/variables';
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,700,900');
+
 .BillsPage {
   .search-bar,
   .nav,
   .chambers {
     margin-bottom: 20px;
   }
-  .main,
-  .bill-container {
+  .main {
+    font-weight: bold;
     background-color: lighten($main-bg, 35%);
     min-height: 100%;
+  }
+  .bills-container {
+    font-family: Merriweather;
+    padding-bottom: 1em;
+    strong {
+      font-weight: 900;
+    }
+    p {
+      font-weight: 400;
+    }
   }
 }

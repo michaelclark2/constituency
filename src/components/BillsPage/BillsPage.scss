@@ -1,9 +1,13 @@
+@import '../../styles/variables';
 .BillsPage {
   .search-bar,
   .nav,
   .chambers {
     margin-bottom: 20px;
   }
-  .bills-container {
+  .main,
+  .bill-container {
+    background-color: lighten($main-bg, 35%);
+    min-height: 100%;
   }
 }

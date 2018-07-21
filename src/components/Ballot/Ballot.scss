@@ -1,5 +1,14 @@
+@import '../../styles/variables';
 .Ballot {
   button {
     width: 50%;
+  }
+  .for {
+    background-color: $for;
+    border-color: darken($for, 10%);
+  }
+  .against {
+    background-color: $against;
+    border-color: darken($against, 10%);
   }
 }

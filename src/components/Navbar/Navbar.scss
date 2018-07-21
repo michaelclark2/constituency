@@ -1,0 +1,7 @@
+@import '../../styles/variables';
+.Navbar {
+  .navbar-default .nav li.active>a {
+    background-color: lighten($main-bg, 20%);
+    color: #fff;
+  }
+}

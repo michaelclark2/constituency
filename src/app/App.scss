@@ -1,2 +1,6 @@
+@import '../styles/variables';
+
 .App {
+  background-color: $main-bg;
+  min-height: 100vh;
 }

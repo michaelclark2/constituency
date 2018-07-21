@@ -1,16 +1,22 @@
 @import '../../styles/variables';
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,700,900');
 
 .IndividualBillPage {
+  font-family: Merriweather;
   p {
     font-size: 18px;
   }
   .col-xs-12 {
     box-shadow: 1px 2px 5px #0007;
     border-radius: 2px;
+    background-color: lighten($main-bg, 45%);
+
   }
   .bill-title {
-    background-color: lighten($main-bg, 30%);
     padding-bottom: 10px;
+    h2 {
+      font-weight: 900;
+    }
     .bill-number {
       background-color: $bill-number;
       border-radius: 8px;
@@ -24,27 +30,23 @@
     .col-xs-12 {
       margin-top: 20px;
       padding-bottom: 20px;
-      background-color: lighten($main-bg, 30%);
     }
     h3 {
+      font-weight: 700;
       border-bottom: 2px solid $bill-number;
       padding: 10px;
       margin: 20px -15px;
       margin-top: 0;
-      background-image: linear-gradient(darken($main-bg, 10%), lighten($main-bg, 20%));
+      background-image: linear-gradient(darken($main-bg, 5%) 10%, lighten($main-bg, 40%));
     }
     .activity-container {
     }
     .activities {
       max-height: 400px;
       overflow: auto;
-      background-color: #eee;
       padding-top: 20px;
     }
   }
   .messages {
-    .thumbnail {
-      margin: 0;
-    }
   }
 }

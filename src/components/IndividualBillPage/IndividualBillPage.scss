@@ -11,8 +11,6 @@
   .bill-title {
     background-color: lighten($main-bg, 30%);
     padding-bottom: 10px;
-    h2 {
-    }
     .bill-number {
       background-color: $bill-number;
       border-radius: 8px;
@@ -30,11 +28,10 @@
     }
     h3 {
       border-bottom: 2px solid $bill-number;
-      width: 25%;
       padding: 10px;
-      margin: 20px auto;
-    }
-    .committees {
+      margin: 20px -15px;
+      margin-top: 0;
+      background-image: linear-gradient(darken($main-bg, 10%), lighten($main-bg, 20%));
     }
     .activity-container {
     }
@@ -43,6 +40,11 @@
       overflow: auto;
       background-color: #eee;
       padding-top: 20px;
+    }
+  }
+  .messages {
+    .thumbnail {
+      margin: 0;
     }
   }
 }

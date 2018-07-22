@@ -17,6 +17,7 @@ class Register extends React.Component {
       city: '',
       state: '',
       zip: '',
+      isRep: false,
     },
   }
   onEmail = (e) => {
@@ -59,6 +60,11 @@ class Register extends React.Component {
       this.setState({user});
     }
   }
+  onRepClick = (e) => {
+    const {user} = {...this.state};
+    user.isRep = e.target.checked;
+    this.setState({user});
+  }
   onRegisterClick = (e) => {
     e.preventDefault();
     const {user} = this.state;
@@ -74,6 +80,7 @@ class Register extends React.Component {
                     ...stateAndDistrict,
                     username: user.username,
                     uid: authReqs.getUid(),
+                    isRep: user.isRep,
                   };
                   userReqs
                     .postUser(userObj)
@@ -167,6 +174,11 @@ class Register extends React.Component {
                 <div className="form-group">
                   <div className="col-sm-12">
                     <Link to="/login">Already have an account?</Link>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" onChange={this.onRepClick} value={this.state.user.isRep} /> I am a congressman
+                      </label>
+                    </div>
                   </div>
                 </div>
               </form>

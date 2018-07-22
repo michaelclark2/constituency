@@ -10,15 +10,38 @@ class MessageBoard extends React.Component {
     messages: [],
   }
   componentDidUpdate (props) {
-    if (this.props.bill.bill_slug !== props.bill.bill_slug) {
+    if (
+      this.props.bill.bill_slug !== props.bill.bill_slug ||
+      this.props.user !== props.user
+    ) {
       this.getAllMessages();
     }
   }
   getAllMessages = () => {
-    const {bill} = this.props;
+    const {bill, user} = this.props;
     msgReqs
       .getMessages(bill.bill_slug)
       .then(messages => {
+        messages = messages.map(msg => {
+          if (
+            msg.isRep &&
+            msg.state === user.state &&
+            (msg.district === user.district && msg.state === user.state)
+          ) {
+            return msg;
+          } else if (!msg.isRep) {
+            return msg;
+          } else {
+            return null;
+          }
+        });
+        messages = messages.filter(msg => msg !== null);
+        messages.sort((a, b) => {
+          if (a.isRep) {
+            return -1;
+          }
+          return 0;
+        });
         this.setState({messages});
       })
       .catch(err => {
@@ -28,7 +51,7 @@ class MessageBoard extends React.Component {
   render () {
     const comments = this.state.messages.map(comment => {
       return (
-        <Comment key={comment.id} comment={comment} getMsgs={this.getAllMessages} />
+        <Comment key={comment.id} comment={comment} getMsgs={this.getAllMessages} user={this.props.user} />
       );
     });
     return (

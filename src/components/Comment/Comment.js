@@ -19,8 +19,21 @@ class Comment extends React.Component {
     };
     return (
       <div className="Comment">
-        <div className="panel panel-default">
+        <div className={
+          comment.isRep ? (
+            'panel panel-info'
+          ) : (
+            'panel panel-default'
+          )
+        }>
           <div className="panel-body">
+            {
+              comment.isRep ? (
+                <h2>Official Statement</h2>
+              ) : (
+                ''
+              )
+            }
             <div className="media">
               <div className="media-left">
                 <h5>{comment.username}</h5>

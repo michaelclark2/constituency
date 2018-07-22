@@ -1,0 +1,30 @@
+@import '../../styles/variables';
+.BillVoteTally {
+  .tally {
+    width: 100%;
+    text-align: center;
+    border-radius: 4px;
+    .for,
+    .against,
+    .absent {
+      display: inline-block;
+      color: white;
+      max-width: 90%;
+    }
+    .for {
+      background-color: $for;
+      border-color: darken($for, 20%);
+      border-radius: 4px 0 0 4px;
+    }
+    .against {
+      background-color: $against;
+      border-color: darken($against, 20%);
+      border-radius: 0 4px 4px 0;
+    }
+    .absent {
+      background-color: #ddd;
+      border-radius: 0 4px 4px 0;
+      margin-left: -4px;
+    }
+  }
+}

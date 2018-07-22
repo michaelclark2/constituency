@@ -8,10 +8,14 @@ import MessageBoard from '../MessageBoard/MessageBoard';
 
 import {getIndividualBill} from '../../apicalls/propublica';
 import {getVotesBySlug} from '../../firebase/votes';
+import userReqs from '../../firebase/users';
+import authReqs from '../../firebase/auth';
+import VoteComparison from '../VoteComparison/VoteComparison';
 
 class IndividualBillPage extends React.Component {
   state = {
     bill: {},
+    user: {},
     votes: [],
   }
   componentDidMount () {
@@ -20,6 +24,7 @@ class IndividualBillPage extends React.Component {
         getVotesBySlug(bill.bill_slug)
           .then(votes => {
             this.setState({bill, votes});
+            this.getUserInfo();
           })
           .catch(err => {
             console.error('Error on individual bill page', err);
@@ -39,13 +44,24 @@ class IndividualBillPage extends React.Component {
         console.error('Error getting votes by bill slug');
       });
   }
+  getUserInfo = () => {
+    userReqs
+      .getUserInfo(authReqs.getUid())
+      .then(user => {
+        this.setState({user});
+      })
+      .catch(err => {
+        console.error('Error getting messages', err);
+      });
+  }
   render () {
     const {bill, votes} = this.state;
     let actionComponents = [];
+    let voteComponents = [];
     if (bill.actions) {
       actionComponents = bill.actions.map(action => {
         return (
-          <div key={action.id} className="col-sm-8 col-sm-offset-2">
+          <div key={action.id} className="col-sm-10 col-sm-offset-1">
             <div className="panel panel-default">
               <div className="panel-heading clearfix">
                 <h2 className="panel-title pull-left"><strong>{moment(action.datetime).format('LL')}</strong></h2>
@@ -56,6 +72,13 @@ class IndividualBillPage extends React.Component {
               </div>
             </div>
           </div>
+        );
+      });
+    }
+    if (bill.votes) {
+      voteComponents = bill.votes.map(vote => {
+        return (
+          <VoteComparison key={vote.roll_call} vote={vote} userVotes={this.state.votes} user={this.state.user} />
         );
       });
     }
@@ -74,7 +97,7 @@ class IndividualBillPage extends React.Component {
         </div>
         <div className="bill-body text-center clearfix">
           <div className="col-xs-12 summary">
-            <h3>Summary</h3>
+            <h3 className="section-heading">Summary</h3>
             {
               bill.summary ? (
                 <p className="text-left">{Parser(bill.summary)}</p>
@@ -86,14 +109,24 @@ class IndividualBillPage extends React.Component {
             <a className="btn btn-info" target="_blank" href={bill.congressdotgov_url + '/text'}>View Full Bill Text</a>
           </div>
           <div className="col-xs-12 activity-container">
-            <h3>Bill History</h3>
+            <h3 className="section-heading">Bill History</h3>
             <div className="activities clearfix">
               {actionComponents}
             </div>
           </div>
+          {
+            voteComponents.length ? (
+              <div className="col-xs-12 votes">
+                <h3 className="section-heading">Vote History</h3>
+                {voteComponents}
+              </div>
+            ) : (
+              ''
+            )
+          }
           <div className="col-xs-12 messages">
-            <h3>Leave a Comment</h3>
-            <MessageBoard bill={bill} votes={votes} />
+            <h3 className="section-heading">Leave a Comment</h3>
+            <MessageBoard bill={bill} votes={votes} user={this.state.user} />
           </div>
         </div>
       </div>

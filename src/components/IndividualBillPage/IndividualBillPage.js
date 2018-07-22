@@ -61,7 +61,7 @@ class IndividualBillPage extends React.Component {
     if (bill.actions) {
       actionComponents = bill.actions.map(action => {
         return (
-          <div key={action.id} className="col-sm-8 col-sm-offset-2">
+          <div key={action.id} className="col-sm-10 col-sm-offset-1">
             <div className="panel panel-default">
               <div className="panel-heading clearfix">
                 <h2 className="panel-title pull-left"><strong>{moment(action.datetime).format('LL')}</strong></h2>
@@ -78,7 +78,7 @@ class IndividualBillPage extends React.Component {
     if (bill.votes) {
       voteComponents = bill.votes.map(vote => {
         return (
-          <VoteComparison vote={vote} user={this.state.user} />
+          <VoteComparison key={vote.roll_call} vote={vote} userVotes={this.state.votes} user={this.state.user} />
         );
       });
     }
@@ -97,7 +97,7 @@ class IndividualBillPage extends React.Component {
         </div>
         <div className="bill-body text-center clearfix">
           <div className="col-xs-12 summary">
-            <h3>Summary</h3>
+            <h3 className="section-heading">Summary</h3>
             {
               bill.summary ? (
                 <p className="text-left">{Parser(bill.summary)}</p>
@@ -109,7 +109,7 @@ class IndividualBillPage extends React.Component {
             <a className="btn btn-info" target="_blank" href={bill.congressdotgov_url + '/text'}>View Full Bill Text</a>
           </div>
           <div className="col-xs-12 activity-container">
-            <h3>Bill History</h3>
+            <h3 className="section-heading">Bill History</h3>
             <div className="activities clearfix">
               {actionComponents}
             </div>
@@ -117,7 +117,7 @@ class IndividualBillPage extends React.Component {
           {
             voteComponents.length ? (
               <div className="col-xs-12 votes">
-                <h3>Vote History</h3>
+                <h3 className="section-heading">Vote History</h3>
                 {voteComponents}
               </div>
             ) : (
@@ -125,7 +125,7 @@ class IndividualBillPage extends React.Component {
             )
           }
           <div className="col-xs-12 messages">
-            <h3>Leave a Comment</h3>
+            <h3 className="section-heading">Leave a Comment</h3>
             <MessageBoard bill={bill} votes={votes} user={this.state.user} />
           </div>
         </div>

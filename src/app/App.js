@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar/Navbar';
 import Home from '../components/Home/Home';
 import BillsPage from '../components/BillsPage/BillsPage';
 import VotesPage from '../components/VotesPage/VotesPage';
+import RepPage from '../components/RepPage/RepPage';
 import IndividualBillPage from '../components/IndividualBillPage/IndividualBillPage';
 import Register from '../components/Register/Register';
 import Login from '../components/Login/Login';
@@ -81,6 +82,7 @@ class App extends React.Component {
               <PrivateRoute path="/bills" authed={this.state.authed} component={BillsPage} />
               <PrivateRoute path="/votes" authed={this.state.authed} component={VotesPage} />
               <PrivateRoute path="/bill/:slug" authed={this.state.authed} component={IndividualBillPage} />
+              <PrivateRoute path="/rep/:id" authed={this.state.authed} component={RepPage} />
             </Switch>
           </div>
         </BrowserRouter>

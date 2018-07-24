@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import moment from 'moment';
 import './VoteComparison.css';
 
@@ -58,7 +59,7 @@ class VoteComparison extends React.Component {
             }>
               <div className="panel-heading clearfix">
                 <h2 className="panel-title text-center">
-                  {member.name}
+                  <Link to={'/rep/' + member.member_id}>{member.name}</Link>
                 </h2>
               </div>
               <div className="panel-body">

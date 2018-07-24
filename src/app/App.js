@@ -71,7 +71,7 @@ class App extends React.Component {
   }
   render () {
     return (
-      <div className="App">
+      <div className="App clearfix">
         <BrowserRouter>
           <div>
             <Navbar authed={this.state.authed} signOff={this.signOff}/>

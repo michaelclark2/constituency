@@ -10,7 +10,7 @@ const getOpenSecretsId = (cid) => {
         resolve(repInfo);
       }).catch(err => {
         reject(err);
-      })
+      });
   });
 };
 const getContrib = (cid) => {
@@ -18,7 +18,7 @@ const getContrib = (cid) => {
     getOpenSecretsId(cid)
       .then(rep => {
         axios
-          .get(`https://www.opensecrets.org/api/?method=candContrib&cid=${rep.id.opensecrets}&apikey=${constants.openSecretsApiKey}&output=json`)
+          .get(`https://constituency-app.herokuapp.com/api/opensecrets/?method=candContrib&cid=${rep.id.opensecrets}&apikey=${constants.openSecretsApiKey}&output=json`)
           .then(res => {
             resolve({...res.data.response, ...rep});
           })
@@ -33,7 +33,7 @@ const getIndustry = (cid) => {
     getContrib(cid)
       .then(rep => {
         axios
-          .get(`https://www.opensecrets.org/api/?method=candIndustry&cid=${rep.id.opensecrets}&apikey=${constants.openSecretsApiKey}&output=json`)
+          .get(`https://constituency-app.herokuapp.com/api/opensecrets/?method=candIndustry&cid=${rep.id.opensecrets}&apikey=${constants.openSecretsApiKey}&output=json`)
           .then(res => {
             resolve({...res.data.response, ...rep});
           })

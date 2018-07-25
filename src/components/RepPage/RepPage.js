@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import AmCharts from '@amcharts/amcharts3-react';
 import moment from 'moment';
+import noPic from './img/notavailable.png';
 import './RepPage.css';
 
 import openSecrets from '../../apicalls/opensecrets';
@@ -18,6 +19,9 @@ class RepPage extends Component {
       .catch(err => {
         console.error('error getting rep info', err);
       });
+  }
+  imgError = (e) => {
+    e.target.setAttribute('src', noPic);
   }
   render () {
     const {rep} = this.state;
@@ -73,7 +77,7 @@ class RepPage extends Component {
               </div>
             </div>
             <div className="col-xs-3">
-              <img className="image-responsive" src={`http://bioguide.congress.gov/bioguide/photo/${rep.name.last[0]}/${rep.id.bioguide}.jpg`} alt=""/>
+              <img className="image-responsive" src={`http://bioguide.congress.gov/bioguide/photo/${rep.name.last[0]}/${rep.id.bioguide}.jpg`} onError={this.imgError} alt=""/>
             </div>
           </div>
           <div className="col-xs-12 main-info">

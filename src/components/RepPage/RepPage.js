@@ -28,7 +28,11 @@ class RepPage extends Component {
     if (!rep.id) {
       return (
         <div className="RepPage">
-          <h1 className="text-center">Loading Representative Info...</h1>
+          <div className="col-xs-8 col-xs-offset-2">
+            <div className="panel panel-primary">
+              <h1 className="text-center">Loading Representative Info...</h1>
+            </div>
+          </div>
         </div>
       );
     } else {
@@ -69,7 +73,7 @@ class RepPage extends Component {
                 <h5>Elected: {moment(currTerm.start).format('MMM YYYY')}</h5>
                 <h5>Term End: {moment(currTerm.end).format('MMM YYYY')}</h5>
               </div>
-              <div className="col-xs-12">
+              <div className="col-xs-12 term-container">
                 <h3>{terms.length} Terms Served</h3>
                 <div className="terms">
                   {terms}
@@ -98,7 +102,7 @@ class RepPage extends Component {
                   valueField: 'total',
                   creditsPosition: 'bottom-right',
                   startDuration: 0,
-                  labelRadius: 10,
+                  labelRadius: 20,
                   allLabels: [],
                   balloon: {},
                   legend: {
@@ -125,7 +129,7 @@ class RepPage extends Component {
                   valueField: 'total',
                   creditsPosition: 'bottom-right',
                   startDuration: 0,
-                  labelRadius: 10,
+                  labelRadius: 20,
                   allLabels: [],
                   balloon: {},
                   legend: {

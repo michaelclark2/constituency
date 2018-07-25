@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import './Vote.css';
 import authReqs from '../../firebase/auth';
-import {updateVote} from '../../firebase/votes';
+import {updateVote, deleteVote} from '../../firebase/votes';
 import VoteTallyBar from '../VoteTallyBar/VoteTallyBar';
 
 class Vote extends React.Component {
@@ -14,6 +14,16 @@ class Vote extends React.Component {
       })
       .catch(err => {
         console.error('Error updating vote');
+      });
+  }
+  removeVote = (e) => {
+    const {vote} = this.props;
+    deleteVote(vote.id)
+      .then(() => {
+        this.props.refresh();
+      })
+      .catch(err => {
+        console.error('Error deleting vote', err);
       });
   }
   render () {
@@ -41,6 +51,13 @@ class Vote extends React.Component {
                     </button>
                   )
                 }
+                <button
+                  onClick={this.removeVote}
+                  type="button"
+                  class="close"
+                  aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
             </div>
             <div className="panel-body">
@@ -50,6 +67,8 @@ class Vote extends React.Component {
                   {vote.billTitle}
                 </Link>
               </h2>
+            </div>
+            <div className="panel-footer">
               <VoteTallyBar
                 vote={this.props.vote}
                 allVotes={this.props.allVotes}

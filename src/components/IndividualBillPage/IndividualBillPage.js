@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import moment from 'moment';
 import Parser from 'html-react-parser';
 import './IndividualBillPage.css';
@@ -87,7 +88,7 @@ class IndividualBillPage extends React.Component {
         <div className="bill-title text-center col-xs-12 clearfix">
           <div className="clearfix">
             <h1 className="bill-number pull-left">{bill.number}</h1>
-            <h3 className="pull-right">{bill.sponsor_title} {bill.sponsor_name || bill.sponsor}, {bill.sponsor_state} <em>with {bill.cosponsors} cosponsors</em></h3>
+            <h3 className="pull-right"><Link to={'/rep/' + bill.sponsor_id}>{bill.sponsor_title} {bill.sponsor_name || bill.sponsor}, {bill.sponsor_state}</Link> <em>with {bill.cosponsors} cosponsors</em></h3>
           </div>
           <div className="text-left">
             <h4>{bill.committees}</h4>

@@ -46,7 +46,7 @@ class Bill extends React.Component {
         <div className="panel panel-default clearfix">
           <div className="panel-heading clearfix">
             <h3 className="pull-left">{bill.number}</h3>
-            <h3 className="pull-right">{bill.sponsor_title} {bill.sponsor_name || bill.sponsor}, {bill.sponsor_state} <em>with {bill.cosponsors} cosponsors</em></h3>
+            <h3 className="pull-right"><Link to={'/rep/' + bill.sponsor_id}>{bill.sponsor_title} {bill.sponsor_name || bill.sponsor}, {bill.sponsor_state}</Link> <em>with {bill.cosponsors} cosponsors</em></h3>
           </div>
           <div className="panel-body">
             <h2><Link to={{pathname: '/bill/' + bill.bill_slug, uri: bill.bill_uri}}>{bill.short_title}</Link></h2>

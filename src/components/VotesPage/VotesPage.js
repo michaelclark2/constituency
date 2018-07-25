@@ -31,7 +31,7 @@ class VotesPage extends React.Component {
       );
     });
     return (
-      <div className="VotesPage container-fluid">
+      <div className="VotesPage container">
         {voteComponents}
       </div>
     );

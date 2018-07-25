@@ -1,5 +1,18 @@
 .Comment {
   .media-left {
-    width: 20%;
+    // width: 20%;
+    .media-object {
+      height: 64px;
+      width: 64px;
+      margin: 0 auto;
+    }
+  }
+  .media-body {
+    hr {
+      margin: .5em 0;
+    }
+    p {
+      font-size: 14px;
+    }
   }
 }

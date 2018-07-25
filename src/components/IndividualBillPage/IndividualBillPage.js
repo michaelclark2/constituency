@@ -79,7 +79,12 @@ class IndividualBillPage extends React.Component {
     if (bill.votes) {
       voteComponents = bill.votes.map(vote => {
         return (
-          <VoteComparison key={vote.roll_call} vote={vote} userVotes={this.state.votes} user={this.state.user} />
+          <VoteComparison
+            key={vote.roll_call}
+            vote={vote}
+            userVotes={this.state.votes}
+            user={this.state.user}
+          />
         );
       });
     }
@@ -88,13 +93,22 @@ class IndividualBillPage extends React.Component {
         <div className="bill-title text-center col-xs-12 clearfix">
           <div className="clearfix">
             <h1 className="bill-number pull-left">{bill.number}</h1>
-            <h3 className="pull-right"><Link to={'/rep/' + bill.sponsor_id}>{bill.sponsor_title} {bill.sponsor_name || bill.sponsor}, {bill.sponsor_state}</Link> <em>with {bill.cosponsors} cosponsors</em></h3>
+            <h3 className="pull-right">
+              <Link
+                to={'/rep/' + bill.sponsor_id}>
+                {bill.sponsor_title} {bill.sponsor_name || bill.sponsor}, {bill.sponsor_state}
+              </Link> <em>with {bill.cosponsors} cosponsors</em>
+            </h3>
           </div>
           <div className="text-left">
             <h4>{bill.committees}</h4>
             <h2>{bill.title}</h2>
           </div>
-          <Ballot bill={bill} votes={votes} updateVotes={this.updateVotes}/>
+          <Ballot
+            bill={bill}
+            votes={votes}
+            updateVotes={this.updateVotes}
+          />
         </div>
         <div className="bill-body text-center clearfix">
           <div className="col-xs-12 summary">
@@ -127,7 +141,11 @@ class IndividualBillPage extends React.Component {
           }
           <div className="col-xs-12 messages">
             <h3 className="section-heading">Leave a Comment</h3>
-            <MessageBoard bill={bill} votes={votes} user={this.state.user} />
+            <MessageBoard
+              bill={bill}
+              votes={votes}
+              user={this.state.user}
+            />
           </div>
         </div>
       </div>

@@ -83,22 +83,63 @@ class BillsPage extends React.Component {
   render () {
     const billsComponents = this.state.bills.map(bill => {
       return (
-        <Bill key={bill.bill_id} bill={bill} votes={this.state.votes} updateVotes={this.updateVotes} />
+        <Bill
+          key={bill.bill_id}
+          bill={bill}
+          votes={this.state.votes}
+          updateVotes={this.updateVotes}
+        />
       );
     });
     return (
       <div className="BillsPage container-fluid">
         <div className="row search-bar">
           <div className="col-sm-6 col-sm-offset-3">
-            <input onKeyPress={this.searchBills} onChange={this.searchInput} value={this.state.searchQuery} type="text" className="form-control text-center" placeholder="Search..."/>
+            <input
+              onKeyPress={this.searchBills}
+              onChange={this.searchInput}
+              value={this.state.searchQuery}
+              type="text"
+              className="form-control text-center"
+              placeholder="Search..."
+            />
           </div>
         </div>
         <ul className="nav nav-tabs nav-justified">
-          <NavLink id='introduced' onClick={this.changeType} to='/bills/introduced'>Introduced</NavLink>
-          <NavLink id='active' onClick={this.changeType} to='/bills/active'>Active</NavLink>
-          <NavLink id='passed' onClick={this.changeType} to='/bills/passed'>Passed</NavLink>
-          <NavLink id='enacted' onClick={this.changeType} to='/bills/enacted'>Enacted</NavLink>
-          <NavLink id='upcoming' onClick={this.changeType} to='/bills/upcoming'>Upcoming</NavLink>
+          <NavLink
+            id='introduced'
+            onClick={this.changeType}
+            to='/bills/introduced'>
+            Introduced
+          </NavLink>
+
+          <NavLink
+            id='active'
+            onClick={this.changeType}
+            to='/bills/active'>
+            Active
+          </NavLink>
+
+          <NavLink
+            id='passed'
+            onClick={this.changeType}
+            to='/bills/passed'>
+            Passed
+          </NavLink>
+
+          <NavLink
+            id='enacted'
+            onClick={this.changeType}
+            to='/bills/enacted'>
+            Enacted
+          </NavLink>
+
+          <NavLink
+            id='upcoming'
+            onClick={this.changeType}
+            to='/bills/upcoming'>
+            Upcoming
+          </NavLink>
         </ul>
         <div className="col-xs-12 main">
           <div className="form-group text-center chambers">
@@ -109,8 +150,8 @@ class BillsPage extends React.Component {
                 name="chamberSelect"
                 value="both"
                 disabled={this.state.billType === 'upcoming'}
-                checked={this.state.billChamber === 'both' && this.state.billType !== 'upcoming'}/>
-                  Both
+                checked={this.state.billChamber === 'both' && this.state.billType !== 'upcoming'}
+              /> Both
             </label>
             <label className="radio-inline">
               <input

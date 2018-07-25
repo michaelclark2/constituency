@@ -28,16 +28,32 @@ class Vote extends React.Component {
                 You voted: &nbsp;
                 {
                   vote.position ? (
-                    <button className="btn btn-primary" onClick={this.changePosition}>Yes</button>
+                    <button
+                      className="btn btn-primary"
+                      onClick={this.changePosition}>
+                      Yes
+                    </button>
                   ) : (
-                    <button className="btn btn-danger" onClick={this.changePosition}>No</button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={this.changePosition}>
+                      No
+                    </button>
                   )
                 }
               </div>
             </div>
             <div className="panel-body">
-              <h2><Link to={{pathname: '/bill/' + vote.billSlug, uri: vote.billUri}} >{vote.billTitle}</Link></h2>
-              <VoteTallyBar vote={this.props.vote} allVotes={this.props.allVotes} />
+              <h2>
+                <Link
+                  to={{pathname: '/bill/' + vote.billSlug, uri: vote.billUri}}>
+                  {vote.billTitle}
+                </Link>
+              </h2>
+              <VoteTallyBar
+                vote={this.props.vote}
+                allVotes={this.props.allVotes}
+              />
             </div>
           </div>
         </div>

@@ -54,7 +54,11 @@ class Comment extends React.Component {
               <div className="media-body text-left">
                 {
                   comment.uid === authReqs.getUid() ? (
-                    <button className="btn btn-sm btn-default pull-right" onClick={removeComment}><span className="glyphicon glyphicon-remove"></span></button>
+                    <button
+                      className="btn btn-sm btn-default pull-right"
+                      onClick={removeComment}>
+                      <span className="glyphicon glyphicon-remove"></span>
+                    </button>
                   ) : (
                     ''
                   )

@@ -77,7 +77,11 @@ class RepPage extends Component {
               </div>
             </div>
             <div className="col-xs-3">
-              <img className="image-responsive" src={`http://bioguide.congress.gov/bioguide/photo/${rep.name.last[0]}/${rep.id.bioguide}.jpg`} onError={this.imgError} alt=""/>
+              <img
+                className="image-responsive"
+                src={`http://bioguide.congress.gov/bioguide/photo/${rep.name.last[0]}/${rep.id.bioguide}.jpg`}
+                onError={this.imgError}
+                alt={rep.name.official_full}/>
             </div>
           </div>
           <div className="col-xs-12 main-info">
@@ -106,7 +110,9 @@ class RepPage extends Component {
               />
             </div>
             <div className="col-xs-12">
-              <h2 className="text-center">Top 10 Contributors<br/><small>{rep.contributors['@attributes'].notice}</small></h2>
+              <h2 className="text-center">Top 10 Contributors<br/>
+                <small>{rep.contributors['@attributes'].notice}</small>
+              </h2>
 
               <AmCharts.React
                 className="contribs"

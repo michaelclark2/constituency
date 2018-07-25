@@ -65,8 +65,19 @@ class CommentInput extends React.Component {
                 ''
               )
             }
-            <textarea onChange={this.commentChange} className="form-control" rows="5" type="text" value={this.state.comment}></textarea>
-            <button onClick={this.sendComment} type="submit" className="form-control btn btn-primary">Send</button>
+            <textarea
+              onChange={this.commentChange}
+              className="form-control"
+              rows="5"
+              type="text"
+              value={this.state.comment}>
+            </textarea>
+            <button
+              onClick={this.sendComment}
+              type="submit"
+              className="form-control btn btn-primary">
+              Send
+            </button>
           </form>
         </div>
       </div>

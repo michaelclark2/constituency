@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {Component} from 'react';
+import AmCharts from '@amcharts/amcharts3-react';
 import moment from 'moment';
 import './RepPage.css';
 
 import openSecrets from '../../apicalls/opensecrets';
 
-class RepPage extends React.Component {
+class RepPage extends Component {
   state = {
     rep: {},
   }
@@ -28,6 +29,12 @@ class RepPage extends React.Component {
       );
     } else {
       const currTerm = rep.terms[rep.terms.length - 1];
+      const contributors = rep.contributors.contributor.map(data => {
+        return {...data['@attributes']};
+      });
+      const industries = rep.industries.industry.map(data => {
+        return {...data['@attributes']};
+      });
       const terms = rep.terms.map(term => {
         return (
           <div key={term.start} className="term-panel">
@@ -58,11 +65,11 @@ class RepPage extends React.Component {
                 <h5>Elected: {moment(currTerm.start).format('MMM YYYY')}</h5>
                 <h5>Term End: {moment(currTerm.end).format('MMM YYYY')}</h5>
               </div>
-              <div className="col-md-6">
-                pie chart
-              </div>
-              <div className="col-md-6">
-                chart of pie
+              <div className="col-xs-12">
+                <h3>{terms.length} Terms Served</h3>
+                <div className="terms">
+                  {terms}
+                </div>
               </div>
             </div>
             <div className="col-xs-3">
@@ -71,10 +78,53 @@ class RepPage extends React.Component {
           </div>
           <div className="col-xs-12 main-info">
             <div className="col-xs-12">
-              <h3>{terms.length} Terms Served</h3>
-              <div className="terms">
-                {terms}
-              </div>
+              <h2 className="text-center">Top 10 Industries</h2>
+              <AmCharts.React
+                className="industry"
+                options={{
+                  type: 'pie',
+                  pullOutRadius: '10%',
+                  balloonText: '[[title]]<br><span style="font-size:14px"><b>[[value]]</b> ([[percents]]%)</span><br><span>Individuals: [[indivs]]</span><br><span>PACs: [[pacs]]</span>',
+                  innerRadius: '60%',
+                  titleField: 'industry_name',
+                  valueField: 'total',
+                  creditsPosition: 'bottom-right',
+                  startDuration: 0,
+                  labelRadius: 10,
+                  allLabels: [],
+                  balloon: {},
+                  legend: {
+                    enabled: false,
+                  },
+                  titles: [],
+                  dataProvider: industries,
+                }}
+              />
+            </div>
+            <div className="col-xs-12">
+              <h2 className="text-center">Top 10 Contributors<br/><small>{rep.contributors['@attributes'].notice}</small></h2>
+
+              <AmCharts.React
+                className="contribs"
+                options={{
+                  type: 'pie',
+                  pullOutRadius: '10%',
+                  balloonText: '[[title]]<br><span style="font-size:14px"><b>[[value]]</b> ([[percents]]%)</span><br><span>Individuals: [[indivs]]</span><br><span>PACs: [[pacs]]</span>',
+                  innerRadius: '60%',
+                  titleField: 'org_name',
+                  valueField: 'total',
+                  creditsPosition: 'bottom-right',
+                  startDuration: 0,
+                  labelRadius: 10,
+                  allLabels: [],
+                  balloon: {},
+                  legend: {
+                    enabled: false,
+                  },
+                  titles: [],
+                  dataProvider: contributors,
+                }}
+              />
             </div>
           </div>
         </div>

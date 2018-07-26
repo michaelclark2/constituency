@@ -3,20 +3,13 @@
 .Home {
   font-family: Merriweather;
   width: 100%;
-  margin-top: -30px;
+  margin-top: -71px;
+  background: url(./img/america.svg) center no-repeat;
+  background-size: 75%;
+  background-color: #eee;
+  height: 100%;
   .jumbotron {
     padding: 0;
-  }
-  img {
-    width: 66%;
-    // min-height: 100%;
-    // display: block;
-    // position: absolute;
-    // top: 0;
-    // left: 0;
-    // right: 0;
-    // opacity: .8;
-    // margin: 0 auto;
   }
   .container {
     position: absolute;
@@ -26,11 +19,12 @@
   }
   h1 {
     font-size: 8em;
-    font-weight: 800;
-    text-shadow: 0 0 30px #fff8;
+    font-weight: 900;
+    text-shadow: 0 0 30px #fff;
   }
   p {
-    font-weight: 600;
+    font-weight: 900;
+    background-color: #eee9;
     text-shadow: 0 0 15px #fff8;
   }
   ul {
@@ -39,12 +33,8 @@
     margin: 0 auto;
     margin-top: 5em;
     padding: 0;
-    position: absolute;
-    top: 33%;
-    bottom: 0;
-    left: 0;
-    right: 0;
     li {
+      background-color: #eee9;
       font-weight: 900;
       font-size: 2em;
       margin: 1em 0;

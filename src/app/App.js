@@ -73,7 +73,7 @@ class App extends React.Component {
     return (
       <div className="App clearfix">
         <BrowserRouter>
-          <div>
+          <div className="main-container">
             <Navbar authed={this.state.authed} signOff={this.signOff}/>
             <Switch>
               <Route path="/" exact component={Home} />

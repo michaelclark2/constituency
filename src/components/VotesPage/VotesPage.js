@@ -22,11 +22,16 @@ class VotesPage extends React.Component {
   render () {
     const voteComponents = this.state.votes.map(vote => {
       return (
-        <Vote key={vote.id} vote={vote} allVotes={this.state.votes} refresh={this.getAllVotes} />
+        <Vote
+          key={vote.id}
+          vote={vote}
+          allVotes={this.state.votes}
+          refresh={this.getAllVotes}
+        />
       );
     });
     return (
-      <div className="VotesPage container-fluid">
+      <div className="VotesPage container">
         {voteComponents}
       </div>
     );

@@ -16,7 +16,7 @@
     padding-bottom: 10px;
     h2 {
       font-weight: 900;
-      line-height: 1.75em;
+      line-height: 1.5em;
     }
     .bill-number {
       background-color: $bill-number;
@@ -31,6 +31,9 @@
     .col-xs-12 {
       margin-top: 20px;
       padding-bottom: 20px;
+      &:last-child {
+        margin-bottom: 20px;
+      }
     }
     .section-heading {
       font-weight: 700;
@@ -38,7 +41,7 @@
       padding: 10px;
       margin: 20px -15px;
       margin-top: 0;
-      background-image: linear-gradient(darken($main-bg, 5%) 10%, lighten($main-bg, 40%));
+      background-image: linear-gradient(lighten($main-bg, 40%), lighten($main-bg, 30%), lighten($main-bg, 40%));
     }
     .activities {
       max-height: 400px;

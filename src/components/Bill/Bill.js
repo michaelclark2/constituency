@@ -26,7 +26,12 @@ class Bill extends React.Component {
             <div className="panel-body">
               {
                 bill.chamber === 'senate' ? (
-                  <h2><Link to={{pathname: '/bill/' + bill.bill_slug, uri: bill.api_uri}}>{Parser(bill.context)}</Link></h2>
+                  <h2>
+                    <Link
+                      to={{pathname: '/bill/' + bill.bill_slug, uri: bill.api_uri}}>
+                      {Parser(bill.context)}
+                    </Link>
+                  </h2>
                 ) : (
                   <h2><Link to={{pathname: '/bill/' + bill.bill_slug, uri: bill.api_uri}}>{Parser(bill.description)}</Link></h2>
                 )
@@ -35,7 +40,11 @@ class Bill extends React.Component {
               <p><strong>Scheduled for: </strong>{moment(bill.legislative_day).format('LL')} {bill.consideration}</p>
             </div>
             <div className="panel-footer">
-              <Ballot bill={bill} votes={this.props.votes} updateVotes={this.props.updateVotes}/>
+              <Ballot
+                bill={bill}
+                votes={this.props.votes}
+                updateVotes={this.props.updateVotes}
+              />
             </div>
           </div>
         </div>
@@ -46,10 +55,20 @@ class Bill extends React.Component {
         <div className="panel panel-default clearfix">
           <div className="panel-heading clearfix">
             <h3 className="pull-left">{bill.number}</h3>
-            <h3 className="pull-right"><Link to={'/rep/' + bill.sponsor_id}>{bill.sponsor_title} {bill.sponsor_name || bill.sponsor}, {bill.sponsor_state}</Link> <em>with {bill.cosponsors} cosponsors</em></h3>
+            <h3 className="pull-right">
+              <Link
+                to={'/rep/' + bill.sponsor_id}>
+                {bill.sponsor_title} {bill.sponsor_name || bill.sponsor}, {bill.sponsor_state}
+              </Link> <em>with {bill.cosponsors} cosponsors</em>
+            </h3>
           </div>
           <div className="panel-body">
-            <h2><Link to={{pathname: '/bill/' + bill.bill_slug, uri: bill.bill_uri}}>{bill.short_title}</Link></h2>
+            <h2>
+              <Link
+                to={{pathname: '/bill/' + bill.bill_slug, uri: bill.bill_uri}}>
+                {bill.short_title}
+              </Link>
+            </h2>
             <p><strong>Summary: </strong>{bill.summary_short ? Parser(bill.summary_short) : 'No summary currently available'}</p>
             <p><strong>Committees: </strong>{Parser(bill.committees)}</p>
             <p><strong>Introduced: </strong>{moment(bill.introduced_date).format('LL')}</p>
@@ -57,7 +76,11 @@ class Bill extends React.Component {
             <p><strong>Latest Action: </strong>{moment(bill.latest_major_action_date).format('LL')}: {bill.latest_major_action}</p>
           </div>
           <div className="panel-footer">
-            <Ballot bill={bill} votes={this.props.votes} updateVotes={this.props.updateVotes} />
+            <Ballot
+              bill={bill}
+              votes={this.props.votes}
+              updateVotes={this.props.updateVotes}
+            />
           </div>
         </div>
       </div>

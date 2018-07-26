@@ -82,5 +82,17 @@ const getVoteData = (uri) => {
       });
   });
 };
+const deleteVote = (id) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(`${constants.firebaseConfig.databaseURL}/votes/${id}.json`)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
 
-export {castVote, getVotes, getVoteData, getVotesBySlug, updateVote};
+export {castVote, getVotes, getVoteData, getVotesBySlug, updateVote, deleteVote};

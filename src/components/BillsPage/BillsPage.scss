@@ -3,13 +3,15 @@
 
 .BillsPage {
   .search-bar,
-  .nav,
   .chambers {
     margin-bottom: 20px;
   }
+  .chambers {
+    margin-top: 20px;
+  }
   .main {
     font-weight: bold;
-    background-color: lighten($main-bg, 35%);
+    background-color: lighten($main-bg, 40%);
     min-height: 100%;
   }
   .bills-container {
@@ -20,6 +22,17 @@
     }
     p {
       font-weight: 400;
+    }
+  }
+  .nav-tabs.nav-justified>li {
+    & > a {
+      background-color: lighten($main-bg, 30%);
+      border-bottom: 1px solid #999;
+    }
+    &.active>a {
+      background-color: lighten($main-bg, 40%);
+      border-bottom-color: lighten($main-bg, 40%);
+      font-weight: 700;
     }
   }
 }

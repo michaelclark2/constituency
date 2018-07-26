@@ -3,4 +3,7 @@
 .App {
   background-color: $main-bg;
   min-height: 100vh;
+  .main-container {
+    height: 100vh;
+  }
 }

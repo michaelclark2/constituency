@@ -50,17 +50,34 @@ class Login extends React.Component {
               <form className="form-horizontal">
                 <div className="form-group">
                   <div className="col-sm-12">
-                    <input onChange={this.onInputChange} value={this.state.user.email} type="email" className="form-control text-center" placeholder="Email" />
+                    <input
+                      onChange={this.onInputChange}
+                      value={this.state.user.email}
+                      type="email"
+                      className="form-control text-center"
+                      placeholder="Email"
+                    />
                   </div>
                 </div>
                 <div className="form-group">
                   <div className="col-sm-12">
-                    <input onChange={this.onInputChange} value={this.state.user.password} type="password" className="form-control text-center" placeholder="Password" />
+                    <input
+                      onChange={this.onInputChange}
+                      value={this.state.user.password}
+                      type="password"
+                      className="form-control text-center"
+                      placeholder="Password"
+                    />
                   </div>
                 </div>
                 <div className="form-group">
                   <div className="col-sm-12">
-                    <button onClick={this.onSignInClick} type="submit" className="btn btn-default">Sign in</button>
+                    <button
+                      onClick={this.onSignInClick}
+                      type="submit"
+                      className="btn btn-default">
+                      Sign in
+                    </button>
                   </div>
                 </div>
                 <div className="form-group">

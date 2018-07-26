@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import AmCharts from '@amcharts/amcharts3-react';
 import moment from 'moment';
+import noPic from './img/notavailable.png';
 import './RepPage.css';
 
 import openSecrets from '../../apicalls/opensecrets';
@@ -19,12 +20,19 @@ class RepPage extends Component {
         console.error('error getting rep info', err);
       });
   }
+  imgError = (e) => {
+    e.target.setAttribute('src', noPic);
+  }
   render () {
     const {rep} = this.state;
     if (!rep.id) {
       return (
         <div className="RepPage">
-          <h1 className="text-center">Loading Representative Info...</h1>
+          <div className="col-xs-8 col-xs-offset-2">
+            <div className="panel panel-primary">
+              <h1 className="text-center">Loading Representative Info...</h1>
+            </div>
+          </div>
         </div>
       );
     } else {
@@ -65,7 +73,7 @@ class RepPage extends Component {
                 <h5>Elected: {moment(currTerm.start).format('MMM YYYY')}</h5>
                 <h5>Term End: {moment(currTerm.end).format('MMM YYYY')}</h5>
               </div>
-              <div className="col-xs-12">
+              <div className="col-xs-12 term-container">
                 <h3>{terms.length} Terms Served</h3>
                 <div className="terms">
                   {terms}
@@ -73,7 +81,11 @@ class RepPage extends Component {
               </div>
             </div>
             <div className="col-xs-3">
-              <img className="image-responsive" src={`http://bioguide.congress.gov/bioguide/photo/${rep.name.last[0]}/${rep.id.bioguide}.jpg`} alt=""/>
+              <img
+                className="image-responsive"
+                src={`http://bioguide.congress.gov/bioguide/photo/${rep.name.last[0]}/${rep.id.bioguide}.jpg`}
+                onError={this.imgError}
+                alt={rep.name.official_full}/>
             </div>
           </div>
           <div className="col-xs-12 main-info">
@@ -84,15 +96,17 @@ class RepPage extends Component {
                 options={{
                   type: 'pie',
                   pullOutRadius: '10%',
-                  balloonText: '[[title]]<br><span style="font-size:14px"><b>[[value]]</b> ([[percents]]%)</span><br><span>Individuals: [[indivs]]</span><br><span>PACs: [[pacs]]</span>',
+                  balloonText: '[[title]]<br><span style="font-size:14px"><b>$[[value]]</b> ([[percents]]%)</span><br><span>Individuals: $[[indivs]]</span><br><span>PACs: $[[pacs]]</span>',
                   innerRadius: '60%',
                   titleField: 'industry_name',
                   valueField: 'total',
                   creditsPosition: 'bottom-right',
                   startDuration: 0,
-                  labelRadius: 10,
+                  labelRadius: 20,
                   allLabels: [],
-                  balloon: {},
+                  balloon: {
+                    textAlign: 'left',
+                  },
                   legend: {
                     enabled: false,
                   },
@@ -102,22 +116,26 @@ class RepPage extends Component {
               />
             </div>
             <div className="col-xs-12">
-              <h2 className="text-center">Top 10 Contributors<br/><small>{rep.contributors['@attributes'].notice}</small></h2>
+              <h2 className="text-center">Top 10 Contributors<br/>
+                <small>{rep.contributors['@attributes'].notice}</small>
+              </h2>
 
               <AmCharts.React
                 className="contribs"
                 options={{
                   type: 'pie',
                   pullOutRadius: '10%',
-                  balloonText: '[[title]]<br><span style="font-size:14px"><b>[[value]]</b> ([[percents]]%)</span><br><span>Individuals: [[indivs]]</span><br><span>PACs: [[pacs]]</span>',
+                  balloonText: '[[title]]<br><span style="font-size:14px"><b>$[[value]]</b> ([[percents]]%)</span><br><span>Individuals: $[[indivs]]</span><br><span>PACs: $[[pacs]]</span>',
                   innerRadius: '60%',
                   titleField: 'org_name',
                   valueField: 'total',
                   creditsPosition: 'bottom-right',
                   startDuration: 0,
-                  labelRadius: 10,
+                  labelRadius: 20,
                   allLabels: [],
-                  balloon: {},
+                  balloon: {
+                    textAlign: 'left',
+                  },
                   legend: {
                     enabled: false,
                   },

@@ -111,13 +111,21 @@ class VoteComparison extends React.Component {
               }
             </div>
             <div className="col-md-12">
-              <BillVoteTally yes={vote.total_yes} no={vote.total_no} absent={vote.total_not_voting} />
+              <BillVoteTally
+                yes={vote.total_yes}
+                no={vote.total_no}
+                absent={vote.total_not_voting}
+              />
               <p>Yes: {vote.total_yes} No: {vote.total_no} Not voting: {vote.total_not_voting}</p>
             </div>
             <div className="col-md-12">
               {
                 vote.question.includes('Pass') ? (
-                  <button onClick={this.getVote} className="btn btn-info">Compare Votes</button>
+                  <button
+                    onClick={this.getVote}
+                    className="btn btn-info">
+                    Compare Votes
+                  </button>
                 ) : (
                   ''
                 )

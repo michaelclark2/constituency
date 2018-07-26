@@ -14,10 +14,17 @@
       margin: 4px 0 0 15px;
       margin-top: 4px;
     }
+    .close {
+      padding: 5px 10px;
+    }
   }
   .panel-body {
     h2 {
       margin-top: 0;
+      line-height: 1.5em;
     }
+  }
+  .panel-footer {
+    padding: 0;
   }
 }

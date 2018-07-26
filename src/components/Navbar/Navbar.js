@@ -34,7 +34,7 @@ class Navbar extends React.Component {
             {
               authed ? (
                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                  <ul onClick={this.toggle} className="nav navbar-nav navbar-left">
+                  <ul className="nav navbar-nav navbar-left">
                     <NavLink to="/bills"><span className="glyphicon glyphicon-inbox"></span> Bills</NavLink>
                     <NavLink to="/votes"><span className="glyphicon glyphicon-check"></span> Votes</NavLink>
                   </ul>

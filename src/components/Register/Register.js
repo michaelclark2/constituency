@@ -108,9 +108,6 @@ class Register extends React.Component {
         console.error('error in user registration', err);
       });
   }
-  componentWillUnmount () {
-    this.setState({isError: false, errorMsg: ''});
-  }
   render () {
     return (
       <div className="Register container">
@@ -130,17 +127,35 @@ class Register extends React.Component {
               <form className="form-horizontal">
                 <div className="form-group">
                   <div className="col-sm-12">
-                    <input onChange={this.onEmail} value={this.state.user.email} type="email" className="form-control text-center" placeholder="Email" />
+                    <input
+                      onChange={this.onEmail}
+                      value={this.state.user.email}
+                      type="email"
+                      className="form-control text-center"
+                      placeholder="Email"
+                    />
                   </div>
                 </div>
                 <div className="form-group">
                   <div className="col-sm-12">
-                    <input onChange={this.onUserName} value={this.state.user.username} type="text" className="form-control text-center" placeholder="Name" />
+                    <input
+                      onChange={this.onUserName}
+                      value={this.state.user.username}
+                      type="text"
+                      className="form-control text-center"
+                      placeholder="Name"
+                    />
                   </div>
                 </div>
                 <div className="form-group">
                   <div className="col-sm-12">
-                    <input onChange={this.onPassword} value={this.state.user.password} type="password" className="form-control text-center" placeholder="Password" />
+                    <input
+                      onChange={this.onPassword}
+                      value={this.state.user.password}
+                      type="password"
+                      className="form-control text-center"
+                      placeholder="Password"
+                    />
                   </div>
                 </div>
                 <div className="form-group">
@@ -150,33 +165,66 @@ class Register extends React.Component {
                 </div>
                 <div className="form-group">
                   <div className="col-sm-12">
-                    <input onChange={this.onStreet} value={this.state.user.street} type="text" className="form-control text-center" placeholder="Street Address" />
+                    <input
+                      onChange={this.onStreet}
+                      value={this.state.user.street}
+                      type="text"
+                      className="form-control text-center"
+                      placeholder="Street Address"
+                    />
                   </div>
                 </div>
                 <div className="form-group">
                   <div className="col-sm-12">
-                    <input onChange={this.onCity} value={this.state.user.city} type="text" className="form-control text-center" placeholder="City" />
+                    <input
+                      onChange={this.onCity}
+                      value={this.state.user.city}
+                      type="text"
+                      className="form-control text-center"
+                      placeholder="City"
+                    />
                   </div>
                 </div>
                 <div className="form-group">
                   <div className="col-sm-7">
-                    <input onChange={this.onState} value={this.state.user.state} type="text" className="form-control text-center" placeholder="State" />
+                    <input
+                      onChange={this.onState}
+                      value={this.state.user.state}
+                      type="text"
+                      className="form-control text-center"
+                      placeholder="State"
+                    />
                   </div>
                   <div className="col-sm-5">
-                    <input onChange={this.onZip} value={this.state.user.zip} type="text" className="form-control text-center" placeholder="Zip Code" />
+                    <input
+                      onChange={this.onZip}
+                      value={this.state.user.zip}
+                      type="text"
+                      className="form-control text-center"
+                      placeholder="Zip Code"
+                    />
                   </div>
                 </div>
                 <div className="form-group">
                   <div className="col-sm-12">
-                    <button onClick={this.onRegisterClick} type="submit" className="btn btn-default">Create Account</button>
+                    <button
+                      onClick={this.onRegisterClick}
+                      type="submit"
+                      className="btn btn-default">
+                      Create Account
+                    </button>
                   </div>
                 </div>
                 <div className="form-group">
                   <div className="col-sm-12">
                     <Link to="/login">Already have an account?</Link>
-                    <div class="checkbox">
+                    <div className="checkbox">
                       <label>
-                        <input type="checkbox" onChange={this.onRepClick} value={this.state.user.isRep} /> I am a congressman
+                        <input
+                          type="checkbox"
+                          onChange={this.onRepClick}
+                          value={this.state.user.isRep}
+                        /> I am a congressman
                       </label>
                     </div>
                   </div>

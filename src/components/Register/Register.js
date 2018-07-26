@@ -218,7 +218,7 @@ class Register extends React.Component {
                 <div className="form-group">
                   <div className="col-sm-12">
                     <Link to="/login">Already have an account?</Link>
-                    <div class="checkbox">
+                    <div className="checkbox">
                       <label>
                         <input
                           type="checkbox"

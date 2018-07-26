@@ -96,7 +96,7 @@ class RepPage extends Component {
                 options={{
                   type: 'pie',
                   pullOutRadius: '10%',
-                  balloonText: '[[title]]<br><span style="font-size:14px"><b>[[value]]</b> ([[percents]]%)</span><br><span>Individuals: [[indivs]]</span><br><span>PACs: [[pacs]]</span>',
+                  balloonText: '[[title]]<br><span style="font-size:14px"><b>$[[value]]</b> ([[percents]]%)</span><br><span>Individuals: $[[indivs]]</span><br><span>PACs: $[[pacs]]</span>',
                   innerRadius: '60%',
                   titleField: 'industry_name',
                   valueField: 'total',
@@ -104,7 +104,9 @@ class RepPage extends Component {
                   startDuration: 0,
                   labelRadius: 20,
                   allLabels: [],
-                  balloon: {},
+                  balloon: {
+                    textAlign: 'left',
+                  },
                   legend: {
                     enabled: false,
                   },
@@ -123,7 +125,7 @@ class RepPage extends Component {
                 options={{
                   type: 'pie',
                   pullOutRadius: '10%',
-                  balloonText: '[[title]]<br><span style="font-size:14px"><b>[[value]]</b> ([[percents]]%)</span><br><span>Individuals: [[indivs]]</span><br><span>PACs: [[pacs]]</span>',
+                  balloonText: '[[title]]<br><span style="font-size:14px"><b>$[[value]]</b> ([[percents]]%)</span><br><span>Individuals: $[[indivs]]</span><br><span>PACs: $[[pacs]]</span>',
                   innerRadius: '60%',
                   titleField: 'org_name',
                   valueField: 'total',
@@ -131,7 +133,9 @@ class RepPage extends Component {
                   startDuration: 0,
                   labelRadius: 20,
                   allLabels: [],
-                  balloon: {},
+                  balloon: {
+                    textAlign: 'left',
+                  },
                   legend: {
                     enabled: false,
                   },

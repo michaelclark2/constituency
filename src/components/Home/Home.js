@@ -9,7 +9,6 @@ class Home extends React.Component {
           <div className="container">
             <h1>Constituency</h1>
             <p>From the congressional floor to your fingertips</p>
-            {/* <img src={america} alt=""/> */}
             <ul>
               <li>Voice your opinion by voting on bills</li>
               <li>Chat with others in your voting district</li>

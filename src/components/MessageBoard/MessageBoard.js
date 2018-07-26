@@ -37,8 +37,8 @@ class MessageBoard extends React.Component {
         });
         messages = messages.filter(msg => msg !== null);
         messages.sort((a, b) => {
-          if (a.isRep) {
-            return -1;
+          if (b.isRep) {
+            return 1;
           }
           return 0;
         });

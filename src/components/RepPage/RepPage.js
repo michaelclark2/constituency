@@ -43,6 +43,8 @@ class RepPage extends Component {
       const industries = rep.industries.industry.map(data => {
         return {...data['@attributes']};
       });
+      industries[0].top = true;
+      contributors[0].top = true;
       const terms = rep.terms.map(term => {
         return (
           <div key={term.start} className="term-panel">
@@ -96,6 +98,8 @@ class RepPage extends Component {
                 options={{
                   type: 'pie',
                   pullOutRadius: '10%',
+                  pullOutOnlyOne: true,
+                  pulledField: 'top',
                   balloonText: '[[title]]<br><span style="font-size:14px"><b>$[[value]]</b> ([[percents]]%)</span><br><span>Individuals: $[[indivs]]</span><br><span>PACs: $[[pacs]]</span>',
                   innerRadius: '60%',
                   titleField: 'industry_name',
@@ -125,6 +129,8 @@ class RepPage extends Component {
                 options={{
                   type: 'pie',
                   pullOutRadius: '10%',
+                  pullOutOnlyOne: true,
+                  pulledField: 'top',
                   balloonText: '[[title]]<br><span style="font-size:14px"><b>$[[value]]</b> ([[percents]]%)</span><br><span>Individuals: $[[indivs]]</span><br><span>PACs: $[[pacs]]</span>',
                   innerRadius: '60%',
                   titleField: 'org_name',

@@ -4,21 +4,22 @@
   font-family: Merriweather;
   width: 100%;
   margin-top: -71px;
-  background: url(./img/america.svg) center no-repeat;
-  background-size: 75%;
   background-color: #eee;
   height: 100%;
   .jumbotron {
     padding: 0;
   }
   .container {
+    img {
+      width: 30%;
+    }
     position: absolute;
     top: 60px;
     right: 0;
     left: 0;
   }
   h1 {
-    font-size: 8em;
+    font-size: 7em;
     font-weight: 900;
     text-shadow: 0 0 30px #fff;
   }
@@ -37,7 +38,7 @@
       background-color: #eee9;
       font-weight: 900;
       font-size: 2em;
-      margin: 1em 0;
+      margin: .5em 0;
     }
   }
 }

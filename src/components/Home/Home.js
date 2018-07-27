@@ -1,4 +1,5 @@
 import React from 'react';
+import america from './img/america.svg';
 import './Home.css';
 
 class Home extends React.Component {
@@ -7,6 +8,7 @@ class Home extends React.Component {
       <div className="Home text-center clearfix">
         <div className="jumbotron">
           <div className="container">
+            <img src={america} alt="America" />
             <h1>Constituency</h1>
             <p>From the congressional floor to your fingertips</p>
             <ul>

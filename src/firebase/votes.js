@@ -4,12 +4,67 @@ import constants from '../constants';
 const castVote = (voteObj) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(`${constants.firebaseConfig.databaseURL}/votes.json`, voteObj)
+      .get(`${constants.firebaseConfig.databaseURL}/totals.json?orderBy="billSlug"&equalTo="${voteObj.billSlug}"`)
       .then(res => {
-        resolve(res);
+        if (Object.keys(res.data).length > 0) {
+          const uniqueVoteId = Object.keys(res.data)[0];
+          const voteObj = res.data[uniqueVoteId];
+          incrementVoteTotal(voteObj, uniqueVoteId);
+        } else if (Object.keys(res.data).length === 0) {
+          newVoteTotal(voteObj);
+        }
+        axios
+          .post(`${constants.firebaseConfig.databaseURL}/votes.json`, voteObj)
+          .then(res => {
+            resolve(res);
+          })
+          .catch(err => {
+            reject(err);
+          });
       })
       .catch(err => {
-        reject(err);
+        console.error('Error updating vote totals', err);
+      });
+  });
+};
+const incrementVoteTotal = (voteObj, voteId) => {
+  const vote = {...voteObj};
+  delete vote.position;
+  delete vote.uid;
+  vote.total++;
+  axios
+    .put(`${constants.firebaseConfig.databaseURL}/totals/${voteId}.json`, vote)
+    .then()
+    .catch(err => {
+      console.error('Error adding new vote total', err);
+    });
+};
+const newVoteTotal = (voteObj) => {
+  const vote = {...voteObj};
+  delete vote.position;
+  delete vote.uid;
+  vote.total = 1;
+  axios
+    .post(`${constants.firebaseConfig.databaseURL}/totals.json`, vote)
+    .then()
+    .catch(err => {
+      console.error('Error adding new vote total', err);
+    });
+};
+const getPopularVotes = () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${constants.firebaseConfig.databaseURL}/totals.json?orderBy="total"`)
+      .then(res => {
+        const data = res.data;
+        const popVotes = [];
+        if (res.data !== null) {
+          Object.keys(res.data).forEach(key => {
+            data[key].id = key;
+            popVotes.push(data[key]);
+          });
+        }
+        resolve(popVotes);
       });
   });
 };
@@ -95,4 +150,4 @@ const deleteVote = (id) => {
   });
 };
 
-export {castVote, getVotes, getVoteData, getVotesBySlug, updateVote, deleteVote};
+export {castVote, getVotes, getVoteData, getVotesBySlug, updateVote, deleteVote, getPopularVotes};

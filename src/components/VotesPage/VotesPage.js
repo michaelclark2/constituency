@@ -27,11 +27,13 @@ class VotesPage extends React.Component {
           vote={vote}
           allVotes={this.state.votes}
           refresh={this.getAllVotes}
+          url={this.props.location.pathname}
         />
       );
     });
     return (
       <div className="VotesPage container">
+        <h1 className="text-center">My Votes</h1>
         {voteComponents}
       </div>
     );

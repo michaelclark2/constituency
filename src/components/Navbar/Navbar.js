@@ -37,6 +37,7 @@ class Navbar extends React.Component {
                   <ul className="nav navbar-nav navbar-left">
                     <NavLink to="/bills"><span className="glyphicon glyphicon-inbox"></span> Bills</NavLink>
                     <NavLink to="/votes"><span className="glyphicon glyphicon-check"></span> Votes</NavLink>
+                    <NavLink to="/popular"><span className="glyphicon glyphicon-fire"></span> Popular Bills</NavLink>
                   </ul>
                   <ul onClick={this.toggle} className="nav navbar-nav navbar-right">
                     <li><a href='' onClick={logout}><span className="glyphicon glyphicon-user"></span> Logout</a></li>

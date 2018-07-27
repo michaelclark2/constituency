@@ -51,6 +51,23 @@ const newVoteTotal = (voteObj) => {
       console.error('Error adding new vote total', err);
     });
 };
+const getPopularVotes = () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${constants.firebaseConfig.databaseURL}/totals.json?orderBy="total"`)
+      .then(res => {
+        const data = res.data;
+        const popVotes = [];
+        if (res.data !== null) {
+          Object.keys(res.data).forEach(key => {
+            data[key].id = key;
+            popVotes.push(data[key]);
+          });
+        }
+        resolve(popVotes);
+      });
+  });
+};
 const getVotes = () => {
   return new Promise((resolve, reject) => {
     axios
@@ -133,4 +150,4 @@ const deleteVote = (id) => {
   });
 };
 
-export {castVote, getVotes, getVoteData, getVotesBySlug, updateVote, deleteVote};
+export {castVote, getVotes, getVoteData, getVotesBySlug, updateVote, deleteVote, getPopularVotes};

@@ -13,6 +13,7 @@ import Register from '../components/Register/Register';
 import Login from '../components/Login/Login';
 
 import connection from '../firebase/connection';
+import PopularVotesPage from '../components/PopularVotesPage/PopularVotesPage';
 connection();
 
 const PrivateRoute = ({component: Component, authed, ...rest}) => {
@@ -83,6 +84,7 @@ class App extends React.Component {
               <PrivateRoute path="/votes" authed={this.state.authed} component={VotesPage} />
               <PrivateRoute path="/bill/:slug" authed={this.state.authed} component={IndividualBillPage} />
               <PrivateRoute path="/rep/:id" authed={this.state.authed} component={RepPage} />
+              <PrivateRoute path="/popular" authed={this.state.authed} component={PopularVotesPage} />
             </Switch>
           </div>
         </BrowserRouter>

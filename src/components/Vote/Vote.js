@@ -28,7 +28,7 @@ class Vote extends React.Component {
   }
   render () {
     const {vote} = this.props;
-    if (vote.uid === authReqs.getUid()) {
+    if (this.props.url === '/votes' && vote.uid === authReqs.getUid()) {
       return (
         <div className="Vote col-xs-12">
           <div className="panel panel-default clearfix">
@@ -78,7 +78,31 @@ class Vote extends React.Component {
         </div>
       );
     }
-    else {
+    else if (this.props.url === '/popular') {
+      return (
+        <div className="Vote col-xs-12">
+          <div className="panel panel-default clearfix">
+            <div className="panel-heading clearfix">
+              <h3 className="pull-left">{vote.billNumber}</h3>
+            </div>
+            <div className="panel-body">
+              <h2>
+                <Link
+                  to={{pathname: '/bill/' + vote.billSlug, uri: vote.billUri}}>
+                  {vote.billTitle}
+                </Link>
+              </h2>
+            </div>
+            <div className="panel-footer">
+              <VoteTallyBar
+                vote={this.props.vote}
+                allVotes={this.props.allVotes}
+              />
+            </div>
+          </div>
+        </div>
+      );
+    } else {
       return null;
     }
   }

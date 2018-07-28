@@ -39,6 +39,27 @@ const incrementVoteTotal = (voteObj, voteId) => {
       console.error('Error adding new vote total', err);
     });
 };
+const decrementVoteTotal = (voteObj, voteId) => {
+  const vote = {...voteObj};
+  delete vote.position;
+  delete vote.uid;
+  vote.total--;
+  if (vote.total) {
+    axios
+      .put(`${constants.firebaseConfig.databaseURL}/totals/${voteId}.json`, vote)
+      .then()
+      .catch(err => {
+        console.error('Error adding new vote total', err);
+      });
+  } else if (vote.total === 0) {
+    axios
+      .delete(`${constants.firebaseConfig.databaseURL}/totals/${voteId}.json`)
+      .then()
+      .catch(err => {
+        console.error('Error deleting vote total', err);
+      })
+  }
+};
 const newVoteTotal = (voteObj) => {
   const vote = {...voteObj};
   delete vote.position;
@@ -137,15 +158,27 @@ const getVoteData = (uri) => {
       });
   });
 };
-const deleteVote = (id) => {
+const deleteVote = (id, voteObj) => {
   return new Promise((resolve, reject) => {
     axios
-      .delete(`${constants.firebaseConfig.databaseURL}/votes/${id}.json`)
+      .get(`${constants.firebaseConfig.databaseURL}/totals.json?orderBy="billSlug"&equalTo="${voteObj.billSlug}"`)
       .then(res => {
-        resolve(res);
+        if (Object.keys(res.data).length > 0) {
+          const uniqueVoteId = Object.keys(res.data)[0];
+          const voteObj = res.data[uniqueVoteId];
+          decrementVoteTotal(voteObj, uniqueVoteId);
+        }
+        axios
+          .delete(`${constants.firebaseConfig.databaseURL}/votes/${id}.json`)
+          .then(res => {
+            resolve(res);
+          })
+          .catch(err => {
+            reject(err);
+          });
       })
       .catch(err => {
-        reject(err);
+        console.error('Error deleting vote', err);
       });
   });
 };

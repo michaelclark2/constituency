@@ -18,7 +18,7 @@ class Vote extends React.Component {
   }
   removeVote = (e) => {
     const {vote} = this.props;
-    deleteVote(vote.id)
+    deleteVote(vote.id, vote)
       .then(() => {
         this.props.refresh();
       })
@@ -98,6 +98,7 @@ class Vote extends React.Component {
                 vote={this.props.vote}
                 allVotes={this.props.allVotes}
               />
+              <p className="text-center">Total Comments: {this.props.vote.comments || 0}</p>
             </div>
           </div>
         </div>

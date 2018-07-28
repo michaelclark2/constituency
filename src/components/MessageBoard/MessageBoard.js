@@ -34,14 +34,14 @@ class MessageBoard extends React.Component {
           } else {
             return null;
           }
-        });
-        messages = messages.filter(msg => msg !== null);
-        messages.sort((a, b) => {
-          if (b.isRep) {
-            return 1;
-          }
-          return 0;
-        });
+        })
+          .filter(msg => msg !== null)
+          .sort((a, b) => {
+            if (b.isRep) {
+              return 1;
+            }
+            return 0;
+          });
         this.setState({messages});
       })
       .catch(err => {
@@ -54,6 +54,7 @@ class MessageBoard extends React.Component {
         <Comment
           key={comment.id}
           comment={comment}
+          bill={this.props.bill}
           getMsgs={this.getAllMessages}
           user={this.props.user}
         />

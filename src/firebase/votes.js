@@ -1,43 +1,39 @@
 import axios from 'axios';
 import constants from '../constants';
 
-const castVote = (voteObj) => {
-  return new Promise((resolve, reject) => {
-    axios
-      .get(`${constants.firebaseConfig.databaseURL}/totals.json?orderBy="billSlug"&equalTo="${voteObj.billSlug}"`)
-      .then(res => {
-        if (Object.keys(res.data).length > 0) {
-          const uniqueVoteId = Object.keys(res.data)[0];
-          const voteObj = res.data[uniqueVoteId];
-          incrementVoteTotal(voteObj, uniqueVoteId);
-        } else if (Object.keys(res.data).length === 0) {
-          newVoteTotal(voteObj);
-        }
-        axios
-          .post(`${constants.firebaseConfig.databaseURL}/votes.json`, voteObj)
-          .then(res => {
-            resolve(res);
-          })
-          .catch(err => {
-            reject(err);
-          });
-      })
-      .catch(err => {
-        console.error('Error updating vote totals', err);
-      });
-  });
-};
 const incrementVoteTotal = (voteObj, voteId) => {
   const vote = {...voteObj};
-  delete vote.position;
-  delete vote.uid;
   vote.total++;
+  if (!vote.total) {
+    vote.total = 1;
+  }
   axios
     .put(`${constants.firebaseConfig.databaseURL}/totals/${voteId}.json`, vote)
     .then()
     .catch(err => {
       console.error('Error adding new vote total', err);
     });
+};
+const decrementVoteTotal = (voteObj, voteId) => {
+  const vote = {...voteObj};
+  delete vote.position;
+  delete vote.uid;
+  vote.total--;
+  if (vote.total) {
+    axios
+      .put(`${constants.firebaseConfig.databaseURL}/totals/${voteId}.json`, vote)
+      .then()
+      .catch(err => {
+        console.error('Error adding new vote total', err);
+      });
+  } else if (vote.total === 0 && !vote.comments) {
+    axios
+      .delete(`${constants.firebaseConfig.databaseURL}/totals/${voteId}.json`)
+      .then()
+      .catch(err => {
+        console.error('Error deleting vote total', err);
+      });
+  }
 };
 const newVoteTotal = (voteObj) => {
   const vote = {...voteObj};
@@ -65,6 +61,32 @@ const getPopularVotes = () => {
           });
         }
         resolve(popVotes);
+      });
+  });
+};
+const castVote = (voteObj) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${constants.firebaseConfig.databaseURL}/totals.json?orderBy="billSlug"&equalTo="${voteObj.billSlug}"`)
+      .then(res => {
+        if (Object.keys(res.data).length > 0) {
+          const uniqueVoteId = Object.keys(res.data)[0];
+          const voteObj = res.data[uniqueVoteId];
+          incrementVoteTotal(voteObj, uniqueVoteId);
+        } else if (Object.keys(res.data).length === 0) {
+          newVoteTotal(voteObj);
+        }
+        axios
+          .post(`${constants.firebaseConfig.databaseURL}/votes.json`, voteObj)
+          .then(res => {
+            resolve(res);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      })
+      .catch(err => {
+        console.error('Error updating vote totals', err);
       });
   });
 };
@@ -137,15 +159,27 @@ const getVoteData = (uri) => {
       });
   });
 };
-const deleteVote = (id) => {
+const deleteVote = (id, voteObj) => {
   return new Promise((resolve, reject) => {
     axios
-      .delete(`${constants.firebaseConfig.databaseURL}/votes/${id}.json`)
+      .get(`${constants.firebaseConfig.databaseURL}/totals.json?orderBy="billSlug"&equalTo="${voteObj.billSlug}"`)
       .then(res => {
-        resolve(res);
+        if (Object.keys(res.data).length > 0) {
+          const uniqueVoteId = Object.keys(res.data)[0];
+          const voteObj = res.data[uniqueVoteId];
+          decrementVoteTotal(voteObj, uniqueVoteId);
+        }
+        axios
+          .delete(`${constants.firebaseConfig.databaseURL}/votes/${id}.json`)
+          .then(res => {
+            resolve(res);
+          })
+          .catch(err => {
+            reject(err);
+          });
       })
       .catch(err => {
-        reject(err);
+        console.error('Error deleting vote', err);
       });
   });
 };

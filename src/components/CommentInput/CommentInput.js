@@ -17,20 +17,25 @@ class CommentInput extends React.Component {
   sendComment = (e) => {
     e.preventDefault();
     const {comment} = this.state;
-    const {user} = this.props;
+    const {user, bill} = this.props;
     const uid = user.uid;
-    const userVote = this.props.votes.find(x => x.uid === uid);
-    const position = typeof userVote !== 'undefined' ? userVote.position : 'none';
+    const userVote = this.props.votes.find(x => x.uid === uid) || {
+      billSlug: bill.bill_slug,
+      billNumber: bill.number || bill.bill_number,
+      billTitle: bill.title || (bill.context || bill.description),
+      billUri: bill.bill_uri || bill.api_uri,
+    };
+    const position = typeof userVote.position !== 'undefined' ? userVote.position : 'none';
     const commentToSend = {
       post: comment,
-      billSlug: this.props.bill.bill_slug,
+      billSlug: bill.bill_slug,
       position,
       ...user,
       date: moment(),
     };
     if (commentToSend.post) {
       msgReqs
-        .postMessage(commentToSend)
+        .postMessage(commentToSend, userVote)
         .then(res => {
           this.props.getMsgs();
           this.setState({comment: '', isSuccess: true, isError: false});

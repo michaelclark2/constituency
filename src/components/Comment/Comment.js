@@ -7,10 +7,10 @@ import msgReqs from '../../firebase/messages';
 
 class Comment extends React.Component {
   render () {
-    const {comment, getMsgs} = this.props;
+    const {comment, getMsgs, bill} = this.props;
     const removeComment = (e) => {
       msgReqs
-        .deleteComment(comment.id)
+        .deleteComment(comment.id, bill)
         .then(res => {
           getMsgs();
         })

@@ -100,7 +100,7 @@ const postMessage = (msg, voteObj) => {
       })
       .catch(err => {
         console.error('Error adding comment total', err);
-      })
+      });
   });
 };
 const deleteComment = (msgId, bill) => {

@@ -5,6 +5,9 @@ import constants from '../constants';
 const incrementMsgTotal = (msgObj, msgId) => {
   const vote = {...msgObj};
   vote.comments++;
+  if (!vote.comments) {
+    vote.comments = 1;
+  }
   axios
     .put(`${constants.firebaseConfig.databaseURL}/totals/${msgId}.json`, vote)
     .then()
@@ -97,7 +100,7 @@ const postMessage = (msg, voteObj) => {
       })
       .catch(err => {
         console.error('Error adding comment total', err);
-      })
+      });
   });
 };
 const deleteComment = (msgId, bill) => {

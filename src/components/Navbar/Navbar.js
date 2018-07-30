@@ -22,18 +22,12 @@ class Navbar extends React.Component {
         <nav className="navbar navbar-static-top navbar-default">
           <div className="container-fluid">
             <div className="navbar-header">
-              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span className="sr-only">Toggle navigation</span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-              </button>
               <Link to="/" className="navbar-brand">Constituency</Link>
             </div>
 
             {
               authed ? (
-                <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <div>
                   <ul className="nav navbar-nav navbar-left">
                     <NavLink to="/bills"><span className="glyphicon glyphicon-inbox"></span> Bills</NavLink>
                     <NavLink to="/votes"><span className="glyphicon glyphicon-check"></span> Votes</NavLink>
@@ -44,7 +38,7 @@ class Navbar extends React.Component {
                   </ul>
                 </div>
               ) : (
-                <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <div>
                   <ul className="nav navbar-nav navbar-right">
                     <li><Link to="/login"><span className="glyphicon glyphicon-user"></span> Login</Link></li>
                   </ul>

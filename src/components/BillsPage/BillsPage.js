@@ -21,7 +21,6 @@ class BillsPage extends React.Component {
       this.state.bills.length &&
       this.state.billType !== 'upcoming'
     ) {
-      console.log('fired');
       this.setState({offset: this.state.offset + 1}, this.appendBills);
     }
   }

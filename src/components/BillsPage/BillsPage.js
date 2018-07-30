@@ -18,8 +18,10 @@ class BillsPage extends React.Component {
   loadOnScroll = (e) => {
     if (
       (window.innerHeight + window.scrollY) >= (document.body.offsetHeight) &&
-      this.state.bills.length
+      this.state.bills.length &&
+      this.state.billType !== 'upcoming'
     ) {
+      console.log('fired');
       this.setState({offset: this.state.offset + 1}, this.appendBills);
     }
   }

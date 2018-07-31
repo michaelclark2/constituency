@@ -16,6 +16,7 @@ class Bill extends React.Component {
   }
   render () {
     const {bill} = this.props;
+    // If bill is coming from the upcoming type it has a key of 'range'
     if (bill.range) {
       return (
         <div className="Bill col-xs-12">

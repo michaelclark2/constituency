@@ -61,7 +61,7 @@ class Comment extends React.Component {
                 <h4 className="media-heading">{comment.username}</h4>
                 <hr/>
                 <p>
-                  {
+                  { // Split on new line and map to spans with br tags
                     comment.post.split('\n').map((post, key) => {
                       return <span key={key}>{post}<br/></span>;
                     })

@@ -1,6 +1,8 @@
 const formatAddress = (user) => {
   return `${user.street} ${user.city} ${user.state} ${user.zip}`;
 };
+
+// compares two arrays, then compares each object in arrays
 const isEqualVotes = (oldVotes, newVotes) => {
   if (oldVotes.length !== newVotes.length) return false;
   for (let i = 0; i < newVotes.length; i++) {
@@ -12,4 +14,5 @@ const isEqualVotes = (oldVotes, newVotes) => {
   }
   return true;
 };
+
 export {formatAddress, isEqualVotes};

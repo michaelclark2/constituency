@@ -1,52 +1,6 @@
 import axios from 'axios';
 import constants from '../constants';
 
-const incrementVoteTotal = (voteObj, voteId) => {
-  const vote = {...voteObj};
-  vote.total++;
-  if (!vote.total) {
-    vote.total = 1;
-  }
-  axios
-    .put(`${constants.firebaseConfig.databaseURL}/totals/${voteId}.json`, vote)
-    .then()
-    .catch(err => {
-      console.error('Error adding new vote total', err);
-    });
-};
-const decrementVoteTotal = (voteObj, voteId) => {
-  const vote = {...voteObj};
-  delete vote.position;
-  delete vote.uid;
-  vote.total--;
-  if (vote.total) {
-    axios
-      .put(`${constants.firebaseConfig.databaseURL}/totals/${voteId}.json`, vote)
-      .then()
-      .catch(err => {
-        console.error('Error adding new vote total', err);
-      });
-  } else if (vote.total === 0 && !vote.comments) {
-    axios
-      .delete(`${constants.firebaseConfig.databaseURL}/totals/${voteId}.json`)
-      .then()
-      .catch(err => {
-        console.error('Error deleting vote total', err);
-      });
-  }
-};
-const newVoteTotal = (voteObj) => {
-  const vote = {...voteObj};
-  delete vote.position;
-  delete vote.uid;
-  vote.total = 1;
-  axios
-    .post(`${constants.firebaseConfig.databaseURL}/totals.json`, vote)
-    .then()
-    .catch(err => {
-      console.error('Error adding new vote total', err);
-    });
-};
 const getPopularVotes = () => {
   return new Promise((resolve, reject) => {
     axios
@@ -66,16 +20,21 @@ const getPopularVotes = () => {
 };
 const castVote = (voteObj) => {
   return new Promise((resolve, reject) => {
+    // Get totals object first
     axios
       .get(`${constants.firebaseConfig.databaseURL}/totals.json?orderBy="billSlug"&equalTo="${voteObj.billSlug}"`)
       .then(res => {
+        // If there is an object that comes back, increment total
         if (Object.keys(res.data).length > 0) {
           const uniqueVoteId = Object.keys(res.data)[0];
-          const voteObj = res.data[uniqueVoteId];
-          incrementVoteTotal(voteObj, uniqueVoteId);
+          const voteTotalObj = res.data[uniqueVoteId];
+          incrementVoteTotal(voteTotalObj, uniqueVoteId);
+        // If there is no totals object, create new one
         } else if (Object.keys(res.data).length === 0) {
           newVoteTotal(voteObj);
         }
+
+        // Post to votes collection
         axios
           .post(`${constants.firebaseConfig.databaseURL}/votes.json`, voteObj)
           .then(res => {
@@ -145,6 +104,7 @@ const updateVote = (voteObj) => {
       });
   });
 };
+// Gets individual vote
 const getVoteData = (uri) => {
   return new Promise((resolve, reject) => {
     axios
@@ -161,6 +121,7 @@ const getVoteData = (uri) => {
 };
 const deleteVote = (id, voteObj) => {
   return new Promise((resolve, reject) => {
+    // Get totals object first
     axios
       .get(`${constants.firebaseConfig.databaseURL}/totals.json?orderBy="billSlug"&equalTo="${voteObj.billSlug}"`)
       .then(res => {
@@ -169,6 +130,8 @@ const deleteVote = (id, voteObj) => {
           const voteObj = res.data[uniqueVoteId];
           decrementVoteTotal(voteObj, uniqueVoteId);
         }
+
+        // Delete from votes collection
         axios
           .delete(`${constants.firebaseConfig.databaseURL}/votes/${id}.json`)
           .then(res => {
@@ -182,6 +145,58 @@ const deleteVote = (id, voteObj) => {
         console.error('Error deleting vote', err);
       });
   });
+};
+// /////////////////////////////
+//
+// Totals collection manipulation
+//
+// /////////////////////////////
+const incrementVoteTotal = (voteObj, voteId) => {
+  const vote = {...voteObj};
+  vote.total++;
+  if (!vote.total) {
+    vote.total = 1;
+  }
+  axios
+    .put(`${constants.firebaseConfig.databaseURL}/totals/${voteId}.json`, vote)
+    .then()
+    .catch(err => {
+      console.error('Error adding new vote total', err);
+    });
+};
+const decrementVoteTotal = (voteObj, voteId) => {
+  const vote = {...voteObj};
+  delete vote.position;
+  delete vote.uid;
+  vote.total--;
+  if (vote.total) {
+    axios
+      .put(`${constants.firebaseConfig.databaseURL}/totals/${voteId}.json`, vote)
+      .then()
+      .catch(err => {
+        console.error('Error adding new vote total', err);
+      });
+  // If there is not votes, and there is no comments, delete totals object
+  } else if (vote.total === 0 && !vote.comments) {
+    axios
+      .delete(`${constants.firebaseConfig.databaseURL}/totals/${voteId}.json`)
+      .then()
+      .catch(err => {
+        console.error('Error deleting vote total', err);
+      });
+  }
+};
+const newVoteTotal = (voteObj) => {
+  const vote = {...voteObj};
+  delete vote.position;
+  delete vote.uid;
+  vote.total = 1;
+  axios
+    .post(`${constants.firebaseConfig.databaseURL}/totals.json`, vote)
+    .then()
+    .catch(err => {
+      console.error('Error adding new vote total', err);
+    });
 };
 
 export {castVote, getVotes, getVoteData, getVotesBySlug, updateVote, deleteVote, getPopularVotes};

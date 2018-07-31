@@ -23,6 +23,7 @@ class MessageBoard extends React.Component {
       .getMessages(bill.bill_slug)
       .then(messages => {
         messages = messages.map(msg => {
+          // If the message isRep, and the rep is in your state and district return message, else return null
           if (
             msg.isRep &&
             msg.state === user.state &&
@@ -35,7 +36,9 @@ class MessageBoard extends React.Component {
             return null;
           }
         })
+          // Filter out the nulls
           .filter(msg => msg !== null)
+          // Sort the reps comments to the top
           .sort((a, b) => {
             if (b.isRep) {
               return 1;

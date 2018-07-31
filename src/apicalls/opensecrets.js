@@ -1,6 +1,7 @@
 import axios from 'axios';
 import constants from '../constants';
 
+// Gets the CRP ids from the congress api
 const getOpenSecretsId = (cid) => {
   return new Promise((resolve, reject) => {
     axios
@@ -44,4 +45,9 @@ const getIndustry = (cid) => {
   });
 };
 
-export default {getIndustry};
+const getContribInfo = (cid) => {
+  // Combines all OpenSecrets api calls to resolve single rep info object
+  return getIndustry(cid);
+};
+
+export default {getContribInfo};

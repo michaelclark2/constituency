@@ -68,8 +68,10 @@ class Register extends React.Component {
   onRegisterClick = (e) => {
     e.preventDefault();
     const {user} = this.state;
+    // Get state and district by address
     userReqs.getDistrictByAddress(formatAddress(user))
       .then(stateAndDistrict => {
+        // Get all users to check for unique user
         userReqs.getUsers()
           .then(allUsers => {
             const uniqueUsername = allUsers.filter(x => x.username === user.username);
@@ -82,6 +84,7 @@ class Register extends React.Component {
                     uid: authReqs.getUid(),
                     isRep: user.isRep,
                   };
+                  // Post user to collection
                   userReqs
                     .postUser(userObj)
                     .then(() => {
@@ -92,18 +95,22 @@ class Register extends React.Component {
                     });
                 })
                 .catch(err => {
+                  // end registerUser
                   this.setState({isError: true, errorMsg: err.message});
                 });
             }
             else {
+              // If username is not unique, throw error
               throw new Error();
             }
           })
           .catch(err => {
+            // end getUsers
             this.setState({isError: true, errorMsg: 'The username "' + user.username + '" is taken.  Please try another'});
           });
       })
       .catch(err => {
+        // end getDistrictByAddress
         this.setState({isError: true, errorMsg: 'Please enter a valid mailing address'});
         console.error('error in user registration', err);
       });

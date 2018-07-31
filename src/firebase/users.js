@@ -57,11 +57,14 @@ const getDistrictByAddress = (address) => {
         let district;
         const ocddistrict = Object.keys(data.divisions)[0];
 
+        // If there is no district, then the district is 1
         if (res.data.divisions[ocddistrict].alsoKnownAs) {
           district = 1;
         } else {
+          // Split the district number from the ocd string
           district = Number(ocddistrict.split('cd:')[1]);
         }
+        // Resolves an object with state and district, to be added to user object in promise chain
         resolve({state, district});
       }).catch(err => {
         reject(err);

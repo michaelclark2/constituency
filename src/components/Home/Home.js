@@ -7,16 +7,18 @@ class Home extends React.Component {
     return (
       <div className="Home text-center clearfix">
         <div className="jumbotron">
-          <div className="container">
-            <img src={america} alt="America" />
+          <div className="container-fluid">
             <h1>Constituency</h1>
             <p>From the congressional floor to your fingertips</p>
-            <ul>
-              <li>Voice your opinion by voting on bills</li>
-              <li>Chat with others in your voting district</li>
-              <li>View recent congressional activities on bills</li>
-              <li>View contribution info on your representatives</li>
-            </ul>
+            <img src={america} alt="America" />
+            <footer className="home-footer">
+              <ul>
+                <li>Vote on bills</li>
+                <li>Comment on bills</li>
+                <li>View recent bills</li>
+                <li>See contribution information</li>
+              </ul>
+            </footer>
           </div>
         </div>
       </div>

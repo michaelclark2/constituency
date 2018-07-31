@@ -12,7 +12,7 @@ class RepPage extends Component {
   }
   componentDidMount () {
     openSecrets
-      .getIndustry(this.props.match.params.id)
+      .getContribInfo(this.props.match.params.id)
       .then(rep => {
         this.setState({rep});
       })
@@ -43,8 +43,11 @@ class RepPage extends Component {
       const industries = rep.industries.industry.map(data => {
         return {...data['@attributes']};
       });
+
+      // Add top flag for the top donor, will pull out in pie chart
       industries[0].top = true;
       contributors[0].top = true;
+
       const terms = rep.terms.map(term => {
         return (
           <div key={term.start} className="term-panel">

@@ -4,7 +4,7 @@ import constants from '../constants';
 const getPopularVotes = () => {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${constants.firebaseConfig.databaseURL}/totals.json?orderBy="total"`)
+      .get(`${constants.firebaseConfig.databaseURL}/totals.json`)
       .then(res => {
         const data = res.data;
         const popVotes = [];
@@ -14,6 +14,14 @@ const getPopularVotes = () => {
             popVotes.push(data[key]);
           });
         }
+        // Sort popular votes by total comments and votes
+        popVotes.sort((a, b) => {
+          a.total = a.total || 0;
+          b.total = b.total || 0;
+          a.comments = a.comments || 0;
+          b.comments = b.comments || 0;
+          return (b.total + b.comments) - (a.total + a.comments);
+        });
         resolve(popVotes);
       });
   });

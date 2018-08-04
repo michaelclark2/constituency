@@ -25,20 +25,26 @@ class Bill extends React.Component {
               <h3 className="pull-left">{bill.bill_number}</h3>
             </div>
             <div className="panel-body">
-              {
-                bill.chamber === 'senate' ? (
-                  <h2>
-                    <Link
-                      to={{pathname: '/bill/' + bill.bill_slug, uri: bill.api_uri}}>
-                      {Parser(bill.context)}
-                    </Link>
-                  </h2>
-                ) : (
-                  <h2><Link to={{pathname: '/bill/' + bill.bill_slug, uri: bill.api_uri}}>{Parser(bill.description)}</Link></h2>
-                )
-              }
-              <p><strong>Introduced: </strong>{moment(bill.introduced_date).format('LL')}</p>
-              <p><strong>Scheduled for: </strong>{moment(bill.legislative_day).format('LL')} {bill.consideration}</p>
+              <div className="col-xs-12">
+                {
+                  bill.chamber === 'senate' ? (
+                    <h2>
+                      <Link
+                        to={{pathname: '/bill/' + bill.bill_slug, uri: bill.api_uri}}>
+                        {Parser(bill.context)}
+                      </Link>
+                    </h2>
+                  ) : (
+                    <h2><Link to={{pathname: '/bill/' + bill.bill_slug, uri: bill.api_uri}}>{Parser(bill.description)}</Link></h2>
+                  )
+                }
+              </div>
+              <div className="col-md-6">
+                <p><strong>Introduced: </strong>{moment(bill.introduced_date).format('LL')}</p>
+              </div>
+              <div className="col-md-6">
+                <p><strong>Scheduled for: </strong>{moment(bill.legislative_day).format('LL')} {bill.consideration}</p>
+              </div>
             </div>
             <div className="panel-footer">
               <Ballot

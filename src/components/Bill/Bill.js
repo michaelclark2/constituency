@@ -64,17 +64,23 @@ class Bill extends React.Component {
             </h3>
           </div>
           <div className="panel-body">
-            <h2>
-              <Link
-                to={{pathname: '/bill/' + bill.bill_slug, uri: bill.bill_uri}}>
-                {bill.short_title}
-              </Link>
-            </h2>
-            <p><strong>Summary: </strong>{bill.summary_short ? Parser(bill.summary_short) : 'No summary currently available'}</p>
-            <p><strong>Committees: </strong>{Parser(bill.committees)}</p>
-            <p><strong>Introduced: </strong>{moment(bill.introduced_date).format('LL')}</p>
-            <p><strong>Passage: </strong>Sen: {bill.senate_passage ? moment(bill.senate_passage).format('LL') : 'No Data'} HoR: {bill.house_passage ? moment(bill.house_passage).format('LL') : 'No Data'}</p>
-            <p><strong>Latest Action: </strong>{moment(bill.latest_major_action_date).format('LL')}: {bill.latest_major_action}</p>
+            <div className="col-xs-12">
+              <h2>
+                <Link
+                  to={{pathname: '/bill/' + bill.bill_slug, uri: bill.bill_uri}}>
+                  {bill.short_title}
+                </Link>
+              </h2>
+              <p><strong>Summary: </strong>{bill.summary_short ? Parser(bill.summary_short) : 'No summary currently available'}</p>
+            </div>
+            <div className="col-md-6">
+              <p><strong>Committees: </strong>{Parser(bill.committees)}</p>
+              <p><strong>Latest Action: </strong>{moment(bill.latest_major_action_date).format('LL')}: {bill.latest_major_action}</p>
+            </div>
+            <div className="col-md-6">
+              <p><strong>Introduced: </strong>{moment(bill.introduced_date).format('LL')}</p>
+              <p><strong>Passage: </strong>Sen: {bill.senate_passage ? moment(bill.senate_passage).format('LL') : 'No Data'} HoR: {bill.house_passage ? moment(bill.house_passage).format('LL') : 'No Data'}</p>
+            </div>
           </div>
           <div className="panel-footer">
             <Ballot

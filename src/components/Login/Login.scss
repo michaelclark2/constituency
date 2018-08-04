@@ -1,3 +1,7 @@
+@import '../../styles/variables';
 .Login {
   margin-top: 5em;
+  .panel {
+    box-shadow: $box-shadow;
+  }
 }

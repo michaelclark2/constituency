@@ -2,17 +2,20 @@
 @import url('https://fonts.googleapis.com/css?family=Merriweather:400,700,900');
 
 .BillsPage {
-  .search-bar,
-  .chambers {
+  .search-bar {
     margin-bottom: 20px;
+    input {
+      box-shadow: $box-shadow;
+    }
   }
   .chambers {
-    margin-top: 20px;
+    margin: 20px 0;
   }
   .main {
     font-weight: bold;
     background-color: lighten($main-bg, 40%);
     min-height: 100%;
+    box-shadow: $box-shadow;
   }
   .bills-container {
     font-family: Merriweather;
@@ -24,7 +27,12 @@
       font-weight: 400;
     }
   }
+  .nav-tabs {
+    box-shadow: $box-shadow;
+
+  }
   .nav-tabs.nav-justified>li {
+    z-index: 1;
     & > a {
       background-color: lighten($main-bg, 30%);
       border-bottom: 1px solid #999;

@@ -34,10 +34,12 @@ class BillsPage extends React.Component {
   componentDidUpdate (prevProps, prevState) {
     const {billChamber, billType} = this.state;
     if (billType !== prevState.billType || billChamber !== prevState.billChamber) {
-      getBills(billChamber, billType)
-        .then(bills => {
-          this.setState({bills});
-        });
+      if (billType && billChamber) {
+        getBills(billChamber, billType)
+          .then(bills => {
+            this.setState({bills});
+          });
+      }
     }
   }
   updateVotes = () => {

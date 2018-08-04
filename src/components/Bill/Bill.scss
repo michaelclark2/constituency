@@ -1,6 +1,9 @@
+@import '../../styles/variables';
+
 .Bill {
   margin-bottom: 2em;
   .panel {
+    box-shadow: $box-shadow;
     h1 {
       margin-top: 0;
     }
@@ -16,10 +19,12 @@
   .panel-body {
     h2 {
       margin-top: 0;
+      line-height: 1.4em;
     }
   }
   .panel-footer {
     padding: 0;
+    margin: -1px;
     padding-bottom: .25em;
     h1 {
       margin-top: 10px;

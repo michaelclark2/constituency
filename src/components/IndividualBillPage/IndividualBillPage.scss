@@ -7,7 +7,7 @@
     font-size: 18px;
   }
   .col-xs-12 {
-    box-shadow: 1px 2px 5px #0007;
+    box-shadow: $box-shadow;
     border-radius: 2px;
     background-color: lighten($main-bg, 45%);
 

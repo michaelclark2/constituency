@@ -2,13 +2,18 @@
 .Ballot {
   button {
     width: 50%;
+    margin-bottom: -1px;
   }
   .for {
     background-color: $for;
     border-color: darken($for, 10%);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
   .against {
     background-color: $against;
     border-color: darken($against, 10%);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 }

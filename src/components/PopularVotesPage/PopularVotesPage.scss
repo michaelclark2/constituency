@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Merriweather:400,700,900');
+@import '../../styles/variables';
 
 .PopularVotesPage {
   font-family: Merriweather;
+  h1 {
+    margin: .5em .25em;
+    padding-bottom: .5em;
+    font-weight: 900;
+    font-size: 4em;
+    border-bottom: 2px solid $bill-number;
+  }
 }

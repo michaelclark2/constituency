@@ -1,29 +1,34 @@
 {
-  "name": "react-app",
+  "name": "constituency",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@amcharts/amcharts3-react": "^3.0.0",
     "amcharts3": "^3.21.13",
     "axios": "^0.18.0",
     "firebase": "^5.2.0",
     "html-react-parser": "^0.4.6",
     "moment": "^2.22.2",
-    "node-sass-chokidar": "^1.3.0",
-    "npm-run-all": "^4.1.3",
-    "react": "^16.4.1",
-    "react-bootstrap": "^0.32.1",
-    "react-dom": "^16.4.1",
+    "node-sass": "^4.11.0",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4",
-    "@amcharts/amcharts3-react": "^3.0.0"
+    "react-scripts": "^2.1.4"
   },
   "scripts": {
-    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-    "start-js": "react-scripts start",
-    "build-js": "react-scripts build",
-    "start": "npm-run-all -p watch-css start-js",
-    "build": "npm-run-all build-css build-js",
-    "deploy": "npm run build && firebase deploy"
-  }
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy": "react-scripts build && firebase deploy"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

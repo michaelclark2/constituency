@@ -1,5 +1,5 @@
 import React from 'react';
-import './PopularVotesPage.css';
+import './PopularVotesPage.scss';
 
 import {getPopularVotes, getVotes} from '../../firebase/votes';
 import Vote from '../Vote/Vote';

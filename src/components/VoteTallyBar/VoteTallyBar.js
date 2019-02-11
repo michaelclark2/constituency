@@ -1,5 +1,5 @@
 import React from 'react';
-import './VoteTallyBar.css';
+import './VoteTallyBar.scss';
 
 class VoteTallyBar extends React.Component {
   render () {

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import './Register.css';
+import './Register.scss';
 import authReqs from '../../firebase/auth';
 import userReqs from '../../firebase/users';
 import {formatAddress} from '../../helpers';

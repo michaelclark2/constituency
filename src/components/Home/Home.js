@@ -1,6 +1,6 @@
 import React from 'react';
 import america from './img/america.svg';
-import './Home.css';
+import './Home.scss';
 
 class Home extends React.Component {
   render () {

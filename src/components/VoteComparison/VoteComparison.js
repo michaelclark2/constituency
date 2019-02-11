@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import moment from 'moment';
-import './VoteComparison.css';
+import './VoteComparison.scss';
 
 import BillVoteTally from '../BillVoteTally/BillVoteTally';
 

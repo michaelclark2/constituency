@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import './Comment.css';
+import './Comment.scss';
 import noPic from '../RepPage/img/notavailable.png';
 import authReqs from '../../firebase/auth';
 import msgReqs from '../../firebase/messages';

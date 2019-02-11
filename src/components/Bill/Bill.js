@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import Parser from 'html-react-parser';
 import {Link} from 'react-router-dom';
-import './Bill.css';
+import './Bill.scss';
 
 import Ballot from '../Ballot/Ballot';
 

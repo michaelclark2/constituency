@@ -1,5 +1,5 @@
 import React from 'react';
-import './MessageBoard.css';
+import './MessageBoard.scss';
 import CommentInput from '../CommentInput/CommentInput';
 
 import msgReqs from '../../firebase/messages';

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import NavLink from '../NavLink/NavLink';
-import './Navbar.css';
+import './Navbar.scss';
 
 import authReqs from '../../firebase/auth';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import './Vote.css';
+import './Vote.scss';
 import authReqs from '../../firebase/auth';
 import {updateVote, deleteVote} from '../../firebase/votes';
 import VoteTallyBar from '../VoteTallyBar/VoteTallyBar';

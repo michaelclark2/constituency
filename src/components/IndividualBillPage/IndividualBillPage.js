@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import moment from 'moment';
 import Parser from 'html-react-parser';
-import './IndividualBillPage.css';
+import './IndividualBillPage.scss';
 
 import Ballot from '../Ballot/Ballot';
 import MessageBoard from '../MessageBoard/MessageBoard';
@@ -24,8 +24,14 @@ class IndividualBillPage extends React.Component {
       .then(bill => {
         getVotesBySlug(bill.bill_slug)
           .then(votes => {
-            this.setState({bill, votes});
-            this.getUserInfo();
+            userReqs
+              .getUserInfo(authReqs.getUid())
+              .then(user => {
+                this.setState({user, bill, votes});
+              })
+              .catch(err => {
+                console.error('Error getting user info', err);
+              });
           })
           .catch(err => {
             console.error('Error on individual bill page', err);
@@ -45,18 +51,8 @@ class IndividualBillPage extends React.Component {
         console.error('Error getting votes by bill slug');
       });
   }
-  getUserInfo = () => {
-    userReqs
-      .getUserInfo(authReqs.getUid())
-      .then(user => {
-        this.setState({user});
-      })
-      .catch(err => {
-        console.error('Error getting messages', err);
-      });
-  }
   render () {
-    const {bill, votes} = this.state;
+    const {bill, user, votes} = this.state;
     let actionComponents = [];
     let voteComponents = [];
     if (bill.actions) {
@@ -76,7 +72,7 @@ class IndividualBillPage extends React.Component {
         );
       });
     }
-    if (bill.votes) {
+    if (bill.votes && user.uid) {
       voteComponents = bill.votes.map(vote => {
         return (
           <VoteComparison

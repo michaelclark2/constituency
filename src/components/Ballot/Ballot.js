@@ -1,6 +1,6 @@
 import React from 'react';
 import {isEqualVotes} from '../../helpers';
-import './Ballot.css';
+import './Ballot.scss';
 
 import VoteTallyBar from '../VoteTallyBar/VoteTallyBar';
 

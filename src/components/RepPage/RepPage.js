@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import AmCharts from '@amcharts/amcharts3-react';
 import moment from 'moment';
 import noPic from './img/notavailable.png';
-import './RepPage.css';
+import './RepPage.scss';
 
 import openSecrets from '../../apicalls/opensecrets';
 

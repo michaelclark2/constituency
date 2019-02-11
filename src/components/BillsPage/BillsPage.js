@@ -1,7 +1,7 @@
 import React from 'react';
 import NavLink from '../NavLink/NavLink';
 import Bill from '../Bill/Bill';
-import './BillsPage.css';
+import './BillsPage.scss';
 
 import {getBills, searchBills} from '../../apicalls/propublica';
 import {getVotes} from '../../firebase/votes';

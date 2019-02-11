@@ -1,5 +1,5 @@
 import React from 'react';
-import './BillVoteTally.css';
+import './BillVoteTally.scss';
 
 class BillVoteTally extends React.Component {
   render () {

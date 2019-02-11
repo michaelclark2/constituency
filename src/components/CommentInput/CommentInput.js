@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import './CommentInput.css';
+import './CommentInput.scss';
 
 import msgReqs from '../../firebase/messages';
 

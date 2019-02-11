@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, BrowserRouter, Redirect, Switch} from 'react-router-dom';
 import firebase from 'firebase';
-import './App.css';
+import './App.scss';
 
 import Navbar from '../components/Navbar/Navbar';
 import Home from '../components/Home/Home';

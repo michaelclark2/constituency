@@ -16,6 +16,19 @@ Created as a Front-end Capstone project while attending Nashville Software Schoo
 - View the top contributors to a representative's campaign
 - Representatives can make accounts, and leave official statements on bills
 
+
+## View and Vote on Bills
+
+![Vote](https://raw.githubusercontent.com/michaelclark2/constituency/master/screens/vote.gif)
+
+## Change Votes and View Bill Info
+
+![Bills](https://raw.githubusercontent.com/michaelclark2/constituency/master/screens/viewbill.gif)
+
+## View Representative Info
+
+![Reps](https://raw.githubusercontent.com/michaelclark2/constituency/master/screens/viewrep.gif)
+
 ## Future Features
 - Account page
 - View all your representatives and polling location

@@ -7,6 +7,7 @@ const getOpenSecretsId = (cid) => {
     axios
       .get('https://theunitedstates.io/congress-legislators/legislators-current.json')
       .then(res => {
+        // find representative from current legislators
         const repInfo = res.data.find(rep => rep.id.bioguide === cid);
         resolve(repInfo);
       }).catch(err => {
@@ -21,6 +22,7 @@ const getContrib = (cid) => {
         axios
           .get(`https://constituency-app.herokuapp.com/api/opensecrets/?method=candContrib&cid=${rep.id.opensecrets}&apikey=${constants.openSecretsApiKey}&output=json`)
           .then(res => {
+            // combine rep info
             resolve({...res.data.response, ...rep});
           })
           .catch(err => {

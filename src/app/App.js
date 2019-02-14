@@ -21,7 +21,8 @@ const PrivateRoute = ({component: Component, authed, ...rest}) => {
     <Route
       {...rest}
       render={props =>
-        authed === true ? (
+        // if authed prop is true, render component, else redirect to auth page
+        authed ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -38,6 +39,7 @@ const PublicRoute = ({ component: Component, authed, ...rest}) => {
     <Route
       {...rest}
       render={props =>
+        // if already authed, lock out auth screens
         authed === false ? (
           <Component {...props} />
         ) : (

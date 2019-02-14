@@ -14,6 +14,7 @@ class Bill extends React.Component {
     votes: PropTypes.arrayOf(voteShape),
     updateVotes: PropTypes.func,
   }
+
   render () {
     const {bill} = this.props;
     // If bill is coming from the upcoming type it has a key of 'range'

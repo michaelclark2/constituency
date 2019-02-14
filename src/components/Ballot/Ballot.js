@@ -61,6 +61,7 @@ class Ballot extends React.Component {
     return (
       <div className="Ballot">
         {
+          // check if user has already voted
           this.state.isCast ? (
             <div>
               <VoteTallyBar

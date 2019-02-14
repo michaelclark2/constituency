@@ -20,10 +20,13 @@ class IndividualBillPage extends React.Component {
     votes: [],
   }
   componentDidMount () {
+    // Gets bill info from ProPublica Congress API
     getIndividualBill(this.props.location.uri)
       .then(bill => {
+        // get users votes
         getVotesBySlug(bill.bill_slug)
           .then(votes => {
+            // Gets current user
             userReqs
               .getUserInfo(authReqs.getUid())
               .then(user => {

@@ -38,6 +38,7 @@ class BillsPage extends React.Component {
         getBills(billChamber, billType)
           .then(bills => {
             this.setState({bills});
+            console.log(bills)
           });
       }
     }
@@ -84,7 +85,8 @@ class BillsPage extends React.Component {
     }
   }
   render () {
-    const billsComponents = this.state.bills.map(bill => {
+    const {bills, billType} = this.state;
+    const billsComponents = bills.length ? bills.map(bill => {
       return (
         <Bill
           key={bill.bill_id}
@@ -93,7 +95,8 @@ class BillsPage extends React.Component {
           updateVotes={this.updateVotes}
         />
       );
-    });
+
+      }) : [<h1 className="text-center">No bills found...</h1>];
     return (
       <div className="BillsPage container-fluid">
         <div className="row search-bar">
@@ -177,7 +180,7 @@ class BillsPage extends React.Component {
           </div>
           <div className="col-xs-12 bills-container">
             {
-              billsComponents.length ? (
+              billsComponents.length && billType  ? (
                 billsComponents
               ) : (
                 <h1 className="text-center">Please choose a type of bill.</h1>

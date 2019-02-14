@@ -7,7 +7,7 @@ const getBills = (billChamber, billType, offset = 0) => {
   if (billType === 'upcoming') {
     url = `https://api.propublica.org/congress/v1/bills/upcoming/${billChamber}.json`;
   } else {
-    url = `https://api.propublica.org/congress/v1/115/${billChamber}/bills/${billType}.json?offset=${offset}`;
+    url = `https://api.propublica.org/congress/v1/116/${billChamber}/bills/${billType}.json?offset=${offset}`;
   }
   return new Promise((resolve, reject) => {
     axios
@@ -15,7 +15,7 @@ const getBills = (billChamber, billType, offset = 0) => {
         headers: constants.propublicaApiKey,
       })
       .then(res => {
-        resolve(res.data.results[0].bills);
+        resolve(res.data.results[0].bills || []);
       })
       .catch(err => {
         reject(err);
